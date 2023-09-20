@@ -1,2 +1,2 @@
 # Outbreak
-Game Programing 2 Project
+## Game Programing 2 Project
