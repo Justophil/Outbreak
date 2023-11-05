@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Scripts/PlayerMovement.cs" />
+     <Compile Include="Assets/Scripts/MenuManager.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets/Sounds" />
      <Folder Include="Assets/Prefabs" />

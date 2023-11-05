@@ -22,24 +22,27 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _isJumping = false;
     private bool _canJump = true;
-    private float _jumpCooldown = 0.2f;
+    private const float JumpCooldown = 0.2f;
     private float _jumpCooldownTimer = 0f;
 
     private CharacterController _controller;
+    private Camera _playerCamera;
 
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
         _vertSpeed = minFall;
+
+        _playerCamera = GetComponentInChildren<Camera>();
     }
 
-    void Update()
+    private void Update()
     {
         if (!_canJump)
         {
             _jumpCooldownTimer += Time.deltaTime;
 
-            if (_jumpCooldownTimer >= _jumpCooldown)
+            if (_jumpCooldownTimer >= JumpCooldown)
             {
                 _canJump = true;
                 _jumpCooldownTimer = 0f;
@@ -53,9 +56,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ProcessMovement();
+        UpdateCameraRotation();
     }
 
-    void ProcessMovement()
+    private void UpdateCameraRotation()
+    {
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        Vector3 cameraRotation = _playerCamera.transform.rotation.eulerAngles;
+        cameraRotation.x -= mouseY;
+        cameraRotation.y += mouseX;
+
+        _playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
+    }
+
+    private void ProcessMovement()
     {
         float speed = GetMovementSpeed();
         Vector3 movement = CalculateMovementVector();
@@ -68,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         // _controller.GetComponent<Animator>().SetBool("IsGrounded", isOnGround);
     }
 
-    Vector3 CalculateMovementVector()
+    private Vector3 CalculateMovementVector()
     {
         float horInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
@@ -82,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         return movement;
     }
 
-    void RotateCharacter(Vector3 movement)
+    private void RotateCharacter(Vector3 movement)
     {
         if (movement != Vector3.zero)
         {
@@ -91,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void HandleJump()
+    private void HandleJump()
     {
         if (_controller.isGrounded && _isJumping)
         {
@@ -105,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void HandleGravity()
+    private void HandleGravity()
     {
         RaycastHit hit;
         float raycastDistance = _controller.height * 0.6f;
@@ -121,14 +137,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void ApplyMovementToController(Vector3 movement)
+    private void ApplyMovementToController(Vector3 movement)
     {
         movement.y = _vertSpeed;
         movement *= Time.deltaTime;
         _controller.Move(movement);
     }
 
-    float GetMovementSpeed()
+    private float GetMovementSpeed()
     {
         return Input.GetButton("Fire3") ? runSpeed : walkSpeed;
     }
