@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         _vertSpeed = minFall;
 
         _playerCamera = GetComponentInChildren<Camera>();
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void Update()
