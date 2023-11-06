@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public void OnGameStart(){
-        SceneManager.LoadScene("TestScene");
+        GameManager.LoadLevel(); // Loading First level
     }
     public void OnGameExit(){
-        Application.Quit();
+        Application.Quit(); // Exit Game
     }
 }
