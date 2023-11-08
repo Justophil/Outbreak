@@ -45,6 +45,9 @@ namespace Outbreak
             // RecoilScript = transform.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
             // gunTransform = transform.GetChild(0).GetChild(0);
             initialFOV = _playerCamera.fieldOfView;
+            
+
+
 
             // initialGunPosition = gunTransform.localPosition;
             // targetGunPosition = initialGunPosition;
@@ -57,9 +60,17 @@ namespace Outbreak
                 Debug.Log("Equipping Item 1...");
                 Equip(0);
             }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("Equipping Item 2...");
+                Equip(1);
+            }
 
             targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
             currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedTime);
+            
+            
+            
             if (currentWeapon != null)
             {
                 gunTransform.localRotation = Quaternion.Euler(currentRotation);
@@ -101,11 +112,13 @@ namespace Outbreak
 
         private void ToggleADS(bool isAiming)
         {
+            // Transform t_anchor = currentWeapon.transform.Find("Anchor");
             Transform t_anchor = currentWeapon.transform.Find("Anchor");
             Transform t_state_ads = currentWeapon.transform.Find("States/ADS");
             Transform t_state_hip = currentWeapon.transform.Find("States/Hip");
 
-            
+            t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
+
             
             if (isAiming)
             {
@@ -113,11 +126,13 @@ namespace Outbreak
                 t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_ads.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
                 // StartCoroutine(SetADS(_playerCamera.fieldOfView, adsFOV, 0.2f));
                 // targetGunPosition = Vector3.zero; // Adjust gun position for ADS
+                Debug.Log(t_anchor.position);
             }
             else
             {
                 // Transition out of ADS
                 t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
+                Debug.Log(t_anchor.position);
 
                 // StartCoroutine(SetADS(_playerCamera.fieldOfView, initialFOV, 0.2f));
                 // targetGunPosition = initialGunPosition; // Reset gun position for hip fire
