@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
     private Camera _playerCamera;
+    
 
     private void Awake()
     {

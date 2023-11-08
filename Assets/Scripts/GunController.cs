@@ -1,26 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 
 namespace Outbreak
 { 
     
+    [RequireComponent(typeof(CharacterKinematics))]
     public class GunController : MonoBehaviour
     {
+        // Weapon variables
         public Weapon[] loadout;
         public Transform weaponParent;
         private GameObject currentWeapon;
         private Transform gunTransform;
-        private float initialFOV;
-        private float adsFOV = 30.0f;
         private Vector3 initialGunPosition;
         private Vector3 targetGunPosition;
+        private int currentIndex;
+
+        // Camera and Character Controller
         private CharacterController _controller;
         private Camera _playerCamera;
 
-        private int currentIndex;
+        // FOV settings
+        private float initialFOV;
+        private float adsFOV = 30.0f;
 
-        // Rotations
+        // Rotation variables
         private Vector3 currentRotation;
         private Vector3 targetRotation;
 
@@ -29,14 +35,180 @@ namespace Outbreak
         [SerializeField] private float recoilY;
         [SerializeField] private float recoilZ;
 
-        // Settings
+        // Movement settings
         [SerializeField] private float snappiness;
         [SerializeField] private float returnSpeed;
-
         private float smoothness = 5.0f;
 
         private bool isAiming = false;
+        
+        /// <summary>
+        /// /////////////
+        ///
+        ///
+        ///
+        /// 
+        /// </summary>
+        #region FIELDS SERIALIZED
 
+		[Header("Inventory")]
+		
+		[Tooltip("Inventory.")]
+		[SerializeField]
+		private InventoryBehaviour inventory;
+
+		[Header("Cameras")]
+
+		[Tooltip("Normal Camera.")]
+		[SerializeField]
+		private Camera cameraWorld;
+
+		[Header("Animation")]
+
+		[Tooltip("Determines how smooth the locomotion blendspace is.")]
+		[SerializeField]
+		private float dampTimeLocomotion = 0.15f;
+
+		[Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")]
+		[SerializeField]
+		private float dampTimeAiming = 0.3f;
+		
+		[Header("Animation Procedural")]
+		
+		[Tooltip("Character Animator.")]
+		[SerializeField]
+		private Animator characterAnimator;
+
+		#endregion
+
+		#region FIELDS
+
+		/// <summary>
+		/// True if the character is aiming.
+		/// </summary>
+		private bool aiming;
+		/// <summary>
+		/// True if the character is running.
+		/// </summary>
+		private bool running;
+		/// <summary>
+		/// True if the character has its weapon holstered.
+		/// </summary>
+		private bool holstered;
+		
+		/// <summary>
+		/// Last Time.time at which we shot.
+		/// </summary>
+		private float lastShotTime;
+		
+		/// <summary>
+		/// Overlay Layer Index. Useful for playing things like firing animations.
+		/// </summary>
+		private int layerOverlay;
+		/// <summary>
+		/// Holster Layer Index. Used to play holster animations.
+		/// </summary>
+		private int layerHolster;
+		/// <summary>
+		/// Actions Layer Index. Used to play actions like reloading.
+		/// </summary>
+		private int layerActions;
+
+		/// <summary>
+		/// Character Kinematics. Handles all the IK stuff.
+		/// </summary>
+		private CharacterKinematics characterKinematics;
+		
+		/// <summary>
+		/// The currently equipped weapon.
+		/// </summary>
+		private WeaponBehaviour equippedWeapon;
+		/// <summary>
+		/// The equipped weapon's attachment manager.
+		/// </summary>
+		private WeaponAttachmentManagerBehaviour weaponAttachmentManager;
+		
+		/// <summary>
+		/// The scope equipped on the character's weapon.
+		/// </summary>
+		private ScopeBehaviour equippedWeaponScope;
+		/// <summary>
+		/// The magazine equipped on the character's weapon.
+		/// </summary>
+		private MagazineBehaviour equippedWeaponMagazine;
+		
+		/// <summary>
+		/// True if the character is reloading.
+		/// </summary>
+		private bool reloading;
+		
+		/// <summary>
+		/// True if the character is inspecting its weapon.
+		/// </summary>
+		private bool inspecting;
+
+		/// <summary>
+		/// True if the character is in the middle of holstering a weapon.
+		/// </summary>
+		private bool holstering;
+
+		/// <summary>
+		/// Look Axis Values.
+		/// </summary>
+		private Vector2 axisLook;
+		/// <summary>
+		/// Look Axis Values.
+		/// </summary>
+		private Vector2 axisMovement;
+		
+		/// <summary>
+		/// True if the player is holding the aiming button.
+		/// </summary>
+		private bool holdingButtonAim;
+		/// <summary>
+		/// True if the player is holding the running button.
+		/// </summary>
+		private bool holdingButtonRun;
+		/// <summary>
+		/// True if the player is holding the firing button.
+		/// </summary>
+		private bool holdingButtonFire;
+
+		/// <summary>
+		/// If true, the tutorial text should be visible on screen.
+		/// </summary>
+		private bool tutorialTextVisible;
+
+		/// <summary>
+		/// True if the game cursor is locked! Used when pressing "Escape" to allow developers to more easily access the editor.
+		/// </summary>
+		private bool cursorLocked;
+
+		#endregion
+
+		#region CONSTANTS
+
+		/// <summary>
+		/// Aiming Alpha Value.
+		/// </summary>
+		private static readonly int HashAimingAlpha = Animator.StringToHash("Aiming");
+
+		/// <summary>
+		/// Hashed "Movement".
+		/// </summary>
+		private static readonly int HashMovement = Animator.StringToHash("Movement");
+
+		#endregion
+		
+		/// <summary>
+		/// ////////
+		///
+		///
+		///
+		///
+		/// 
+		/// </summary>
+        
         private void Awake()
         {
             _controller = GetComponent<CharacterController>();
