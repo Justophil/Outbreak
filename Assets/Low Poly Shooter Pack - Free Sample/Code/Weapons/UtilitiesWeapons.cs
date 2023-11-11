@@ -14,23 +14,26 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public static T SelectAndSetActive<T>(this T[] array, int index) where T : MonoBehaviour
         {
-            //Make sure we have objects in the array! If we don't, we could get an error or a crash here.
-            if (!array.IsValid()) 
+            // Make sure we have objects in the array! If we don't, we could get an error or a crash here.
+            if (array == null || array.Length == 0)
                 return null;
-            
-            //Deactivate All. This way we don't have to do it manually.
-            array.ForEach(obj => obj.gameObject.SetActive(false));
 
-            //Error Check.
-            if (!array.IsValidIndex(index)) 
+            // Deactivate All. This way we don't have to do it manually.
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i]?.gameObject.SetActive(false);
+            }
+
+            // Error Check.
+            if (index < 0 || index >= array.Length)
                 return null;
-                
-            //Activate.
+
+            // Activate.
             T behaviour = array[index];
-            if(behaviour != null)
+            if (behaviour != null)
                 behaviour.gameObject.SetActive(true);
 
-            //Return.
+            // Return.
             return behaviour;
         }
     }
