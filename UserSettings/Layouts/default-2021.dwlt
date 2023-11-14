@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 95
+  controlID: 27
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 96
+  controlID: 28
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 484
     height: 769
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -535,9 +535,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 725.9378, y: 413.44272, z: 1018.18286}
+    m_Target: {x: 1130, y: 33.954, z: 385}
     speed: 2
-    m_Value: {x: 725.9378, y: 413.44272, z: 1018.18286}
+    m_Value: {x: 1130, y: 33.954, z: 385}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -584,13 +584,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.006907672, y: -0.004793289, z: -0.000050313167, w: 0.99997866}
+    m_Target: {x: 0.120869815, y: -0.615309, z: 0.096185215, w: 0.7729985}
     speed: 2
-    m_Value: {x: -0.008407515, y: -0.004793141, z: -0.000057502642, w: 0.9999532}
+    m_Value: {x: 0.12087024, y: -0.61531115, z: 0.09618555, w: 0.77300125}
   m_Size:
-    m_Target: 819.0777
+    m_Target: 12.124355
     speed: 2
-    m_Value: 819.0777
+    m_Value: 12.124355
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -649,7 +649,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: ec5bffff745cffffa85dffffb45effff6a92ffffc893ffffac94ffff8895ffff8297ffff9698ffffa4dc0000c4dc000080dd0000a4dd0000c4dd0000
+      m_ExpandedIDs: 80f4ffffdaf5ffff20f6ffff74f6ffffccf6ffff6cf7ffff2cf8ffff00f9ffffecf9ffff34fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -808,22 +808,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Damiano\Documents\Semester 5\Game Prog 2\Outbreak
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: bcd20000
-    m_LastClickedID: 53948
-    m_ExpandedIDs: 00000000aed2000000ca9a3b
+    m_SelectedIDs: c85c0000
+    m_LastClickedID: 23752
+    m_ExpandedIDs: 000000005e5c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -851,7 +851,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 000000005e5c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
