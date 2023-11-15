@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public void OnGameStart(){
          // GameManager.LoadLevel(1); // Loading First level
-         SceneManager.LoadScene(1); // Loading First level
+         SceneManager.LoadScene("FPSControllerTest"); // Loading First level
 
     }
     public void OnGameExit(){
