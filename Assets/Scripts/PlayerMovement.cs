@@ -5,6 +5,23 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Animation")]
+    [Tooltip("Determines how smooth the locomotion blendspace is.")]
+    [SerializeField]
+    private float dampTimeLocomotion = 0.15f;
+
+    [Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")]
+    [SerializeField]
+    private float dampTimeAiming = 0.3f;
+
+    [Header("Animation Procedural")]
+    [Tooltip("Character Animator.")]
+    [SerializeField]
+    private Animator characterAnimator;
+    
+    /// <summary>
+    /// /////////
+    /// </summary>
     public bool CanMove { get; private set; } = true;
     private float initialFOV;
     private float adsFOV = 30.0f;
@@ -53,13 +70,13 @@ public class PlayerMovement : MonoBehaviour
     private float headbobTimer = 0;
     private bool isSprintingLastFrame = false;
 
-    private CharacterController _controller;
+    private Rigidbody _controller;
     private Camera _playerCamera;
     
 
     private void Awake()
     {
-        _controller = GetComponent<CharacterController>();
+        _controller = GetComponent<Rigidbody>();
         _vertSpeed = minFall;
 
         _playerCamera = GetComponentInChildren<Camera>();
@@ -115,8 +132,8 @@ public class PlayerMovement : MonoBehaviour
         _playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, mouseX * lookSpeedX, 0);
 
-        gunTransform.rotation = _playerCamera.transform.rotation;
-
+        // Remove the following line that sets the gunTransform.rotation
+        // gunTransform.rotation = _playerCamera.transform.rotation;
 
         // Vector3 cameraRotation = _playerCamera.transform.rotation.eulerAngles;
         // cameraRotation.x -= mouseY;
@@ -125,13 +142,14 @@ public class PlayerMovement : MonoBehaviour
         // _playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
     }
 
+
     private void ProcessMovement()
     {
         float speed = GetMovementSpeed();
         CalculateMovementVector();
         RotateCharacter();
         HandleJump();
-        HandleGravity();
+        // HandleGravity();
         ApplyMovementToController();
     }
 
@@ -160,39 +178,27 @@ public class PlayerMovement : MonoBehaviour
         {
             Quaternion direction = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
-            gunTransform.rotation = transform.rotation;
+            // gunTransform.rotation = transform.rotation;
         }
     }
 
     private void HandleJump()
     {
-        if (_controller.isGrounded && _isJumping)
+        if (isOnGround && _isJumping)
         {
-            _vertSpeed = jumpHeight;
+            _controller.velocity = new Vector3(_controller.velocity.x, Mathf.Sqrt(2 * jumpHeight * gravity), _controller.velocity.z);
             _isJumping = false;
         }
-        else if (!_controller.isGrounded)
-        {
-            _vertSpeed += gravity * 5 * Time.deltaTime;
-            _vertSpeed = Mathf.Max(_vertSpeed, terminalVelocity);
-        }
     }
 
-    private void HandleGravity()
-    {
-        RaycastHit hit;
-        float raycastDistance = _controller.height * 0.6f;
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance))
-        {
-            float check = (_controller.height + _controller.radius) / 1.9f;
-            isOnGround = hit.distance <= check;
-        }
-        else
-        {
-            isOnGround = false;
-        }
-    }
+    // private void HandleGravity()
+    // {
+    //     if (!isOnGround)
+    //     {
+    //         _controller.velocity += Vector3.down * gravity * Time.deltaTime;
+    //         _controller.velocity = Vector3.Max(_controller.velocity, Vector3.down * terminalVelocity);
+    //     }
+    // }
 
     private void HandleHeadbob()
     {
@@ -200,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         bool isMoving = Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f;
 
-        if (isMoving && _controller.isGrounded)
+        if (isMoving && isOnGround)
         {
             headbobTimer += Time.deltaTime * bobFrequency;
 
@@ -223,13 +229,16 @@ public class PlayerMovement : MonoBehaviour
             headbobTimer = 0;
         }
     }
-    
+
     private void ApplyMovementToController()
     {
         moveDirection.y = _vertSpeed;
-        moveDirection *= Time.deltaTime;
-        
-        _controller.Move(moveDirection);
+        float speed = GetMovementSpeed();
+        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized;
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection *= speed;
+
+        _controller.velocity = new Vector3(moveDirection.x, _controller.velocity.y, moveDirection.z);
     }
     
     private float GetMovementSpeed()
