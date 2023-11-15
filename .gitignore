@@ -75,3 +75,11 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
+Library/ArtifactDB
+Library/ArtifactDB
+Library/ArtifactDB-lock
+Library/SourceAssetDB
+Library/Search/transactions.db
+Library/ArtifactDB-lock
+Library/SourceAssetDB-lock
+Logs/shadercompiler-AssetImportWorker0.log
