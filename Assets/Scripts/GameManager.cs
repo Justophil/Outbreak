@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public static float InitialScore; // Updated each Level, (may not be may be used)
-    public static float Score = 0; // Overall Score, Synchronous with gameplay 
-    public static Slider Health; // Health of player, shared with player component for UI purpose
+    public static int Score = 0; // Overall Score, Synchronous with gameplay 
+    public static float Health = 100; // Health of player, shared with player component for UI purpose
     public static float Stamina; // Stamina of player, shared with player component for UI purpose
     private void Awake()
     {
