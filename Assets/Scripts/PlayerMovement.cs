@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using InfimaGames.LowPolyShooterPack;
+using Outbreak;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,6 +20,18 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Character Animator.")]
     [SerializeField]
     private Animator characterAnimator;
+    
+    [Header("Inventory")]
+		
+    [Tooltip("Inventory.")]
+    [SerializeField]
+    private InventoryBehaviour inventory;
+    
+    private Equipment equippedWeapon;
+    private WeaponAttachmentManagerBehaviour weaponAttachmentManager;
+    private ScopeBehaviour equippedWeaponScope;
+    private MagazineBehaviour equippedWeaponMagazine;
+
     
     /// <summary>
     /// /////////
@@ -72,7 +86,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _controller;
     private Camera _playerCamera;
-    
+    private CharacterKinematics characterKinematics;
+    private GunController _gunController;
+    private Vector3 originalPosition;
+
+
 
     private void Awake()
     {
@@ -81,6 +99,15 @@ public class PlayerMovement : MonoBehaviour
 
         _playerCamera = GetComponentInChildren<Camera>();
         initialFOV = _playerCamera.fieldOfView;
+        
+        characterKinematics = GetComponent<CharacterKinematics>();
+        _gunController = GetComponent<GunController>();
+        // //Initialize Inventory.
+        // inventory.Init();
+        
+        //Refresh
+        RefreshWeaponSetup();
+
 
         initialCameraPosition = _playerCamera.transform.localPosition; // Store the original camera position
         
@@ -89,7 +116,29 @@ public class PlayerMovement : MonoBehaviour
         // targetGunPosition = initialGunPosition;
         
         Cursor.lockState = CursorLockMode.Locked;
+        originalPosition = transform.position;
+
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    private void RefreshWeaponSetup()
+    {
+        //Weapon equip check
+        if ((equippedWeapon = _gunController.GetEquipped()) == null)
+            return;
+
+        // weaponAttachmentManager = equippedWeapon.GetAttachmentManager();
+        // if (weaponAttachmentManager == null) 
+        //     return;
+			     
+        equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
+
+        equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
+    }
+/// <summary>
+/// 
+/// </summary>
 
     private void Update()
     {
@@ -98,27 +147,53 @@ public class PlayerMovement : MonoBehaviour
             if (!_canJump)
             {
                 _jumpCooldownTimer += Time.deltaTime;
-
+            
                 if (_jumpCooldownTimer >= JumpCooldown)
                 {
                     _canJump = true;
                     _jumpCooldownTimer = 0f;
                 }
             }
-
+            
             if (_canJump && Input.GetButtonDown("Jump"))
             {
                 _isJumping = true;
                 _canJump = false;
             }
             
+            
+            // if (_canJump && Input.GetButtonDown("Jump"))
+            // {
+            //
+            //     transform.position = new Vector3(transform.position.x, originalPosition.y, transform.position.z);
+            //
+            //     _isJumping = true;
+            //     _canJump = false;
+            // }
             if (canUseHeadbob)
             {
                 HandleHeadbob();
             }
-
+            
             ProcessMovement();
             UpdateCameraRotation();
+        }
+    }
+    
+    void LateUpdate()
+    {
+        // if (equippedWeapon == null)
+        //     return;
+        //
+        // if (equippedWeaponScope == null)
+        //     return;
+			     //
+                 
+        //Make sure that we have a kinematics component!
+        if(characterKinematics != null)
+        {
+            //Compute.
+            characterKinematics.Compute();
         }
     }
 
@@ -129,10 +204,9 @@ public class PlayerMovement : MonoBehaviour
 
         rotationX -= mouseY * lookSpeedY;
         rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
-        _playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        // _playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, mouseX * lookSpeedX, 0);
 
-        // Remove the following line that sets the gunTransform.rotation
         // gunTransform.rotation = _playerCamera.transform.rotation;
 
         // Vector3 cameraRotation = _playerCamera.transform.rotation.eulerAngles;
@@ -147,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float speed = GetMovementSpeed();
         CalculateMovementVector();
-        RotateCharacter();
+        // RotateCharacter();
         HandleJump();
         // HandleGravity();
         ApplyMovementToController();
@@ -189,16 +263,21 @@ public class PlayerMovement : MonoBehaviour
             _controller.velocity = new Vector3(_controller.velocity.x, Mathf.Sqrt(2 * jumpHeight * gravity), _controller.velocity.z);
             _isJumping = false;
         }
+        // if (isOnGround && _isJumping)
+        // {
+        //     _controller.velocity = new Vector3(_controller.velocity.x, Mathf.Sqrt(2 * jumpHeight * -gravity), _controller.velocity.z);
+        //     _isJumping = false;
+        // }
     }
 
-    // private void HandleGravity()
-    // {
-    //     if (!isOnGround)
-    //     {
-    //         _controller.velocity += Vector3.down * gravity * Time.deltaTime;
-    //         _controller.velocity = Vector3.Max(_controller.velocity, Vector3.down * terminalVelocity);
-    //     }
-    // }
+    private void HandleGravity()
+    {
+        if (!isOnGround)
+        {
+            _controller.velocity += Vector3.down * gravity * Time.deltaTime;
+            _controller.velocity = Vector3.Max(_controller.velocity, Vector3.down * terminalVelocity);
+        }
+    }
 
     private void HandleHeadbob()
     {
