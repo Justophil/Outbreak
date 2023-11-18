@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
@@ -40,13 +41,11 @@ public class PlayerMovement : MonoBehaviour
     private float initialFOV;
     private float adsFOV = 30.0f;
     public Transform gunTransform;
-    private Vector3 initialGunPosition;
-    private Vector3 targetGunPosition;
     public Vector3 playerVelocity;
     private ControllerColliderHit _contact;
     [SerializeField] private bool canUseHeadbob = true;
     private bool _isSprinting = false;
-    public bool isOnGround = false;
+    public bool isGrounded = false;
 
     public float walkSpeed = 5;
     public float runSpeed = 8;
@@ -55,14 +54,11 @@ public class PlayerMovement : MonoBehaviour
     private float _vertSpeed;
 
     public float jumpHeight = 15.0f;
-    public float gravity = -9.8f;
-    public float terminalVelocity = -10.0f;
     public float rotSpeed = 1.0f;
 
     private bool _isJumping = false;
     private bool _canJump = true;
-    private const float JumpCooldown = 0.2f;
-    private float _jumpCooldownTimer = 0f;
+
 
     [Header("Look Parameters")] 
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -89,6 +85,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterKinematics characterKinematics;
     private GunController _gunController;
     private Vector3 originalPosition;
+
+    public float groundDistance = 0.85f;
+    public LayerMask groundLayer;
 
 
 
@@ -144,32 +143,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanMove)
         {
-            if (!_canJump)
-            {
-                _jumpCooldownTimer += Time.deltaTime;
-            
-                if (_jumpCooldownTimer >= JumpCooldown)
-                {
-                    _canJump = true;
-                    _jumpCooldownTimer = 0f;
-                }
-            }
-            
-            if (_canJump && Input.GetButtonDown("Jump"))
-            {
-                _isJumping = true;
-                _canJump = false;
-            }
-            
-            
-            // if (_canJump && Input.GetButtonDown("Jump"))
-            // {
-            //
-            //     transform.position = new Vector3(transform.position.x, originalPosition.y, transform.position.z);
-            //
-            //     _isJumping = true;
-            //     _canJump = false;
-            // }
             if (canUseHeadbob)
             {
                 HandleHeadbob();
@@ -178,7 +151,15 @@ public class PlayerMovement : MonoBehaviour
             ProcessMovement();
             UpdateCameraRotation();
         }
+        
+        RaycastHit hit;
+        bool grounded = Physics.Raycast(transform.position + new Vector3(0,1f, 0), Vector3.down, out hit, groundDistance, groundLayer);
+
+        Color rayColor = grounded ? Color.green : Color.red;
+        Debug.DrawRay(transform.position, Vector3.down * groundDistance, rayColor);
     }
+
+    
     
     void LateUpdate()
     {
@@ -190,11 +171,11 @@ public class PlayerMovement : MonoBehaviour
 			     //
                  
         //Make sure that we have a kinematics component!
-        if(characterKinematics != null)
-        {
-            //Compute.
-            characterKinematics.Compute();
-        }
+        // if(characterKinematics != null)
+        // {
+        //     //Compute.
+        //     characterKinematics.Compute();
+        // }
     }
 
     private void UpdateCameraRotation()
@@ -204,7 +185,6 @@ public class PlayerMovement : MonoBehaviour
 
         rotationX -= mouseY * lookSpeedY;
         rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
-        // _playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, mouseX * lookSpeedX, 0);
 
         // gunTransform.rotation = _playerCamera.transform.rotation;
@@ -222,10 +202,36 @@ public class PlayerMovement : MonoBehaviour
         float speed = GetMovementSpeed();
         CalculateMovementVector();
         // RotateCharacter();
-        HandleJump();
+        // HandleJump();
         // HandleGravity();
         ApplyMovementToController();
+        // Debug.Log(IsGrounded());
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            HandleJump();
+        }
+
     }
+
+    private bool IsGrounded()
+    {
+        RaycastHit hit;
+        bool grounded = Physics.Raycast(transform.position + new Vector3(0, 1f, 0), Vector3.down, out hit, groundDistance, groundLayer);
+    
+        // Debug information
+        if (grounded)
+        {
+            Debug.Log("Ground hit at: " + hit.point);
+        }
+        else
+        {
+            Debug.Log("Not grounded");
+        }
+
+        
+        return grounded;
+    }
+
 
     private void CalculateMovementVector()
     {
@@ -258,26 +264,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if (isOnGround && _isJumping)
-        {
-            _controller.velocity = new Vector3(_controller.velocity.x, Mathf.Sqrt(2 * jumpHeight * gravity), _controller.velocity.z);
-            _isJumping = false;
-        }
-        // if (isOnGround && _isJumping)
-        // {
-        //     _controller.velocity = new Vector3(_controller.velocity.x, Mathf.Sqrt(2 * jumpHeight * -gravity), _controller.velocity.z);
-        //     _isJumping = false;
-        // }
+            _controller.AddForce(new Vector3(0,jumpHeight,0), ForceMode.Impulse);
     }
-
-    private void HandleGravity()
-    {
-        if (!isOnGround)
-        {
-            _controller.velocity += Vector3.down * gravity * Time.deltaTime;
-            _controller.velocity = Vector3.Max(_controller.velocity, Vector3.down * terminalVelocity);
-        }
-    }
+    
 
     private void HandleHeadbob()
     {
@@ -285,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         bool isMoving = Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f;
 
-        if (isMoving && isOnGround)
+        if (isMoving && isGrounded)
         {
             headbobTimer += Time.deltaTime * bobFrequency;
 
