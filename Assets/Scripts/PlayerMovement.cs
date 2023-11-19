@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDistance = 0.85f;
     public LayerMask groundLayer;
-
+    public Transform player;
 
 
     private void Awake()
@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
                 HandleHeadbob();
             }
             
-            ProcessMovement();
+            // ProcessMovement();
             UpdateCameraRotation();
         }
         
@@ -159,24 +159,35 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down * groundDistance, rayColor);
     }
 
-    
-    
-    void LateUpdate()
+
+    private void FixedUpdate()
     {
-        // if (equippedWeapon == null)
-        //     return;
-        //
-        // if (equippedWeaponScope == null)
-        //     return;
-			     //
-                 
-        //Make sure that we have a kinematics component!
-        // if(characterKinematics != null)
-        // {
-        //     //Compute.
-        //     characterKinematics.Compute();
-        // }
+        if (CanMove)
+        {
+
+                
+            ProcessMovement();
+
+        }
     }
+
+
+    void LateUpdate()
+        {
+            // if (equippedWeapon == null)
+            //     return;
+            //
+            // if (equippedWeaponScope == null)
+            //     return;
+			         //
+                     
+            //Make sure that we have a kinematics component!
+            // if(characterKinematics != null)
+            // {
+            //     //Compute.
+            //     characterKinematics.Compute();
+            // }
+        }
 
     private void UpdateCameraRotation()
     {
@@ -186,14 +197,7 @@ public class PlayerMovement : MonoBehaviour
         rotationX -= mouseY * lookSpeedY;
         rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
         transform.rotation *= Quaternion.Euler(0, mouseX * lookSpeedX, 0);
-
-        // gunTransform.rotation = _playerCamera.transform.rotation;
-
-        // Vector3 cameraRotation = _playerCamera.transform.rotation.eulerAngles;
-        // cameraRotation.x -= mouseY;
-        // cameraRotation.y += mouseX;
-        //
-        // _playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
+        player.rotation = Quaternion.Euler(rotationX, transform.eulerAngles.y, 0);
     }
 
 
@@ -202,8 +206,6 @@ public class PlayerMovement : MonoBehaviour
         float speed = GetMovementSpeed();
         CalculateMovementVector();
         // RotateCharacter();
-        // HandleJump();
-        // HandleGravity();
         ApplyMovementToController();
         // Debug.Log(IsGrounded());
         if (Input.GetButtonDown("Jump") && IsGrounded())
