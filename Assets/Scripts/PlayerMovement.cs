@@ -221,14 +221,14 @@ public class PlayerMovement : MonoBehaviour
         bool grounded = Physics.Raycast(transform.position + new Vector3(0, 1f, 0), Vector3.down, out hit, groundDistance, groundLayer);
     
         // Debug information
-        if (grounded)
-        {
-            Debug.Log("Ground hit at: " + hit.point);
-        }
-        else
-        {
-            Debug.Log("Not grounded");
-        }
+        // if (grounded)
+        // {
+        //     Debug.Log("Ground hit at: " + hit.point);
+        // }
+        // else
+        // {
+        //     Debug.Log("Not grounded");
+        // }
 
         
         return grounded;
@@ -313,14 +313,7 @@ public class PlayerMovement : MonoBehaviour
     
     private float GetMovementSpeed()
     {
-        if (Input.GetButton("Fire3"))
-        {
-            _isSprinting = true;
-        }
-        else
-        {
-            _isSprinting = false;
-        }
+        _isSprinting = Input.GetButton("Fire3");
         return Input.GetButton("Fire3") ? runSpeed : walkSpeed;
     }
 }

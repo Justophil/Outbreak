@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Outbreak
 { 
@@ -19,7 +21,7 @@ namespace Outbreak
         private Transform gunTransform;
         private Vector3 initialGunPosition;
         private Vector3 targetGunPosition;
-        private int currentIndex;
+        private int currentIndex = -1;
 
         // Camera and Character Controller
         private CharacterController _controller;
@@ -53,13 +55,7 @@ namespace Outbreak
         /// 
         /// </summary>
         #region FIELDS SERIALIZED
-
-		[Header("Inventory")]
-		
-		[Tooltip("Inventory.")]
-		[SerializeField]
-		private InventoryBehaviour inventory;
-
+        
 		[Header("Cameras")]
 
 		[Tooltip("Normal Camera.")]
@@ -104,19 +100,20 @@ namespace Outbreak
             foreach (Equipment item in loadout)
 	            item.gameObject.SetActive(false);
 
+
             int startingItem = 0;
 
             //Equip.
             Equip(startingItem);
 
-
-
+            Debug.Log("Loadout count: " + loadout.Length);
+            Debug.Log("Equipped weapon: " + equipped.gameObject.name);
 
             // initialGunPosition = gunTransform.localPosition;
             // targetGunPosition = initialGunPosition;
         }
 
-        private void Update()
+		private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -158,7 +155,7 @@ namespace Outbreak
             
 	        if (index > loadout.Length - 1)
 		        return equipped;
-
+	        
 	        if (currentIndex == index)
 		        return equipped;
             
