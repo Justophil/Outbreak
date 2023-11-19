@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         // inventory.Init();
         
         //Refresh
-        RefreshWeaponSetup();
+        // RefreshWeaponSetup();
 
 
         initialCameraPosition = _playerCamera.transform.localPosition; // Store the original camera position
@@ -114,10 +114,15 @@ public class PlayerMovement : MonoBehaviour
         // initialGunPosition = gunTransform.localPosition;
         // targetGunPosition = initialGunPosition;
         
-        Cursor.lockState = CursorLockMode.Locked;
         originalPosition = transform.position;
 
     }
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -126,14 +131,15 @@ public class PlayerMovement : MonoBehaviour
         //Weapon equip check
         if ((equippedWeapon = _gunController.GetEquipped()) == null)
             return;
+        characterAnimator.runtimeAnimatorController = equippedWeapon.GetAnimatorController();
 
         // weaponAttachmentManager = equippedWeapon.GetAttachmentManager();
         // if (weaponAttachmentManager == null) 
         //     return;
-			     
-        equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
-
-        equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
+			     //
+        // equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
+        //
+        // equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
     }
 /// <summary>
 /// 
@@ -151,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
             // ProcessMovement();
             UpdateCameraRotation();
         }
+
         
         RaycastHit hit;
         bool grounded = Physics.Raycast(transform.position + new Vector3(0,1f, 0), Vector3.down, out hit, groundDistance, groundLayer);
@@ -182,11 +189,11 @@ public class PlayerMovement : MonoBehaviour
 			         //
                      
             //Make sure that we have a kinematics component!
-            // if(characterKinematics != null)
-            // {
-            //     //Compute.
-            //     characterKinematics.Compute();
-            // }
+            if(characterKinematics != null)
+            {
+                //Compute.
+                characterKinematics.Compute();
+            }
         }
 
     private void UpdateCameraRotation()

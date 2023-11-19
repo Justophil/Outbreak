@@ -125,6 +125,11 @@ namespace Outbreak
                 Debug.Log("Equipping Item 2...");
                 Equip(1);
             }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+	            Fire();
+            }
         
             // targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
             // currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedTime);
@@ -169,14 +174,40 @@ namespace Outbreak
 	        equipped = loadout[currentIndex];
 	        //Activate the newly-equipped weapon.
 	        equipped.gameObject.SetActive(true);
-
+	        
+	        MonoBehaviour[] scriptsOnItem = equipped.GetComponents<MonoBehaviour>();
+	        foreach (var script in scriptsOnItem)
+	        {
+		        script.enabled = true;
+	        }
+			RefreshWeaponSetup();
 	        //Return.
 	        return equipped;
         }
         
         public Equipment GetEquipped() => equipped;
 
+        private void RefreshWeaponSetup()
+        {
+	        //Weapon equip check
+	        if (equipped == null)
+		        return;
+	        characterAnimator.runtimeAnimatorController = equipped.GetAnimatorController();
 
+	        // weaponAttachmentManager = equippedWeapon.GetAttachmentManager();
+	        // if (weaponAttachmentManager == null) 
+	        //     return;
+	        //
+	        // equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
+	        //
+	        // equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
+        }
+
+        private void Fire()
+        {
+	        equipped.Fire();
+        }
+        
         public void RecoilFire()
         {
             targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));

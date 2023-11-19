@@ -119,6 +119,7 @@ using System.Collections.Generic;
             if (maintainTargetRotationOffset)
                 targetOffsetRotation = Quaternion.Inverse(target.rotation) * hierarchy[2].rotation;
             
+            
             Vector3 aPosition = hierarchy[0].position;
             Vector3 bPosition = hierarchy[1].position;
             Vector3 cPosition = hierarchy[2].position;
