@@ -833,9 +833,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
     - target: {fileID: 8228156793680964704, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
+      propertyPath: mask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228156793680964704, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
       propertyPath: socketEjection
       value: 
       objectReference: {fileID: 1851147073}
+    - target: {fileID: 8228156793680964704, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
+      propertyPath: prefabProjectile
+      value: 
+      objectReference: {fileID: 1492315059354262, guid: c638dfae3f3edf843b2614dae230a771, type: 3}
     - target: {fileID: 8228156794168630910, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
       propertyPath: characterAnimator
       value: 

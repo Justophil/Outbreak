@@ -1,4 +1,5 @@
 using System;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 
     public class Equipment : MonoBehaviour
@@ -85,15 +86,39 @@ using UnityEngine;
         
         private Transform _camera;
 
+        private GameObject muzzleSocket;
+        private MuzzleBehaviour muzzleBehaviour;
+        
+        private ParticleSystem particles;
+
+        [Tooltip("Firing Particles.")]
+        [SerializeField]
+        private GameObject prefabFlashParticles;
 
 
         
         
-        protected void Awake()
+        private void Awake()
         {
             //Get Animator.
             animator = GetComponent<Animator>();
+            muzzleSocket = GameObject.Find("SOCKET_Muzzle");
             GameObject playerCamera = GameObject.Find("PlayerCamera");
+            
+            if(prefabFlashParticles != null)
+            {
+                //Instantiate Particles.
+                GameObject spawnedParticlesPrefab = Instantiate(prefabFlashParticles, muzzleSocket.transform);
+                //Reset the position.
+                spawnedParticlesPrefab.transform.localPosition = default;
+                //Reset the rotation.
+                spawnedParticlesPrefab.transform.localEulerAngles = default;
+
+                // Get Reference.
+                particles = spawnedParticlesPrefab.GetComponent<ParticleSystem>();
+            }
+
+                
 
             if (playerCamera != null)
             {
@@ -115,9 +140,11 @@ using UnityEngine;
             // Debug.Log("Camera Position: " + _camera.position);
 
             // Debug.DrawRay(_camera.position, _camera.forward * 50f, Color.red);
-            
-            
+            int flashParticlesCount = 5;
 
+            
+            if(particles != null)
+                particles.Emit(flashParticlesCount);
         }
 
         public Animator GetAnimator() => animator;
@@ -156,6 +183,21 @@ using UnityEngine;
         {
             Debug.Log("Pew Pew Pew!");
             Debug.DrawRay(_camera.position, _camera.forward.normalized * 100, Color.red);
+            Quaternion rotation = Quaternion.LookRotation(_camera.forward * 1000.0f - muzzleSocket.transform.position);
+
+            
+            animator.Play("Fire", 0, 0.0f);
+            
+            //Try to play the fire particles from the muzzle!
+            int flashParticlesCount = 5;
+
+
+            if(particles != null)
+                particles.Emit(flashParticlesCount);
+            GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.transform.position, rotation);
+
+            //Add velocity to the projectile.
+            projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;   
             
             RaycastHit hit;
             if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
