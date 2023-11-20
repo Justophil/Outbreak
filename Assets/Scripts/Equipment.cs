@@ -105,18 +105,19 @@ using UnityEngine;
             muzzleSocket = GameObject.Find("SOCKET_Muzzle");
             GameObject playerCamera = GameObject.Find("PlayerCamera");
             
-            if(prefabFlashParticles != null)
-            {
-                //Instantiate Particles.
-                GameObject spawnedParticlesPrefab = Instantiate(prefabFlashParticles, muzzleSocket.transform);
-                //Reset the position.
-                spawnedParticlesPrefab.transform.localPosition = default;
-                //Reset the rotation.
-                spawnedParticlesPrefab.transform.localEulerAngles = default;
-
-                // Get Reference.
-                particles = spawnedParticlesPrefab.GetComponent<ParticleSystem>();
-            }
+            // if(prefabFlashParticles != null)
+            // {
+            //    
+            //     //Instantiate Particles.
+            //     GameObject spawnedParticlesPrefab = Instantiate(prefabFlashParticles, muzzleSocket.transform);
+            //     //Reset the position.
+            //     spawnedParticlesPrefab.transform.localPosition = default;
+            //     //Reset the rotation.
+            //     spawnedParticlesPrefab.transform.localEulerAngles = default;
+            //
+            //     // Get Reference.
+            //     particles = spawnedParticlesPrefab.GetComponent<ParticleSystem>();
+            // }
 
                 
 
