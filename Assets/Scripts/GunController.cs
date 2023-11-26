@@ -77,6 +77,8 @@ namespace Outbreak
 		[Tooltip("Character Animator.")]
 		[SerializeField]
 		private Animator characterAnimator;
+		private int layerOverlay;
+
 
 		#endregion
 		
@@ -113,6 +115,11 @@ namespace Outbreak
             // targetGunPosition = initialGunPosition;
         }
 
+		private void Start()
+		{
+			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
+		}
+
 		private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -129,6 +136,7 @@ namespace Outbreak
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
 	            Fire();
+	            characterAnimator.CrossFade("Fire", 0.05f, layerOverlay, 0);
             }
         
             // targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);

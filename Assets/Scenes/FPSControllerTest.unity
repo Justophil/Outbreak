@@ -817,6 +817,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1851147073}
     - target: {fileID: 8228156793323402983, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
+      propertyPath: bulletHole
+      value: 
+      objectReference: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
+    - target: {fileID: 8228156793323402983, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
       propertyPath: controller
       value: 
       objectReference: {fileID: 22100000, guid: 257eac322a7afde43bfa9aa9e60baa84, type: 2}
@@ -828,6 +832,10 @@ PrefabInstance:
       propertyPath: socketEjection
       value: 
       objectReference: {fileID: 1062672214}
+    - target: {fileID: 8228156793680964704, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
+      propertyPath: bulletHole
+      value: 
+      objectReference: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
     - target: {fileID: 8228156793680964704, guid: b29b7f129f31ce24684b3908d9b7967f, type: 3}
       propertyPath: controller
       value: 

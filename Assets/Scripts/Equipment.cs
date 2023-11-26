@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 
@@ -51,32 +52,6 @@ using UnityEngine;
         [Tooltip("Weapon Body Texture.")]
         [SerializeField]
         private Sprite spriteBody;
-        //
-        // [Header("Audio Clips Holster")]
-        //
-        // [Tooltip("Holster Audio Clip.")]
-        // [SerializeField]
-        // private AudioClip audioClipHolster;
-        //
-        // [Tooltip("Unholster Audio Clip.")]
-        // [SerializeField]
-        // private AudioClip audioClipUnholster;
-        //
-        // [Header("Audio Clips Reloads")]
-        //
-        // [Tooltip("Reload Audio Clip.")]
-        // [SerializeField]
-        // private AudioClip audioClipReload;
-        //
-        // [Tooltip("Reload Empty Audio Clip.")]
-        // [SerializeField]
-        // private AudioClip audioClipReloadEmpty;
-        //
-        // [Header("Audio Clips Other")]
-        //
-        // [Tooltip("AudioClip played when this weapon is fired without any ammunition.")]
-        // [SerializeField]
-        // private AudioClip audioClipFireEmpty;
 
         #endregion
         
@@ -95,6 +70,8 @@ using UnityEngine;
         [SerializeField]
         private GameObject prefabFlashParticles;
 
+        public GameObject bulletHole;
+
 
         
         
@@ -105,22 +82,6 @@ using UnityEngine;
             muzzleSocket = GameObject.Find("SOCKET_Muzzle");
             GameObject playerCamera = GameObject.Find("PlayerCamera");
             
-            // if(prefabFlashParticles != null)
-            // {
-            //    
-            //     //Instantiate Particles.
-            //     GameObject spawnedParticlesPrefab = Instantiate(prefabFlashParticles, muzzleSocket.transform);
-            //     //Reset the position.
-            //     spawnedParticlesPrefab.transform.localPosition = default;
-            //     //Reset the rotation.
-            //     spawnedParticlesPrefab.transform.localEulerAngles = default;
-            //
-            //     // Get Reference.
-            //     particles = spawnedParticlesPrefab.GetComponent<ParticleSystem>();
-            // }
-
-                
-
             if (playerCamera != null)
             {
                 _camera = playerCamera.transform;
@@ -147,20 +108,6 @@ using UnityEngine;
             if(particles != null)
                 particles.Emit(flashParticlesCount);
         }
-
-        public Animator GetAnimator() => animator;
-        
-        public Sprite GetSpriteBody() => spriteBody;
-
-        // public AudioClip GetAudioClipHolster() => audioClipHolster;
-        // public AudioClip GetAudioClipUnholster() => audioClipUnholster;
-        //
-        // public AudioClip GetAudioClipReload() => audioClipReload;
-        // public AudioClip GetAudioClipReloadEmpty() => audioClipReloadEmpty;
-        //
-        // public AudioClip GetAudioClipFireEmpty() => audioClipFireEmpty;
-        
-        // public AudioClip GetAudioClipFire() => muzzleBehaviour.GetAudioClipFire();
         
         public int GetAmmunitionCurrent() => ammunitionCurrent;
         
@@ -189,26 +136,49 @@ using UnityEngine;
             
             animator.Play("Fire", 0, 0.0f);
             
-            //Try to play the fire particles from the muzzle!
-            int flashParticlesCount = 5;
-
-
-            if(particles != null)
-                particles.Emit(flashParticlesCount);
-            GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.transform.position, rotation);
+            // GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.transform.position, rotation);
 
             //Add velocity to the projectile.
-            projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;   
+            // projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;   
+            
+            
             
             RaycastHit hit;
             if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
             {
                 Debug.Log("Ray hit: " + hit.collider.gameObject.name);
+                StartCoroutine(BulletHit(hit));
+
             }
             else
             {
                 Debug.Log("Ray did not hit anything.");
             }
+        }
+        
+        IEnumerator BulletHit(RaycastHit hit)
+        {
+            GameObject bulletHolePoint = Instantiate(
+                bulletHole,
+                hit.point + (hit.normal * 0.01f),
+                Quaternion.FromToRotation(Vector3.up, hit.normal)
+            );
+
+            Material bulletHoleMaterial = bulletHolePoint.GetComponent<Renderer>().material;
+
+            float currentAlpha = 1.0f;
+
+            while (currentAlpha > 0f)
+            {
+                currentAlpha -= Time.deltaTime * 0.1f; 
+                Color newColor = bulletHoleMaterial.color;
+                newColor.a = currentAlpha;
+                bulletHoleMaterial.color = newColor;
+
+                yield return null;
+            }
+            
+            Destroy(bulletHolePoint);
         }
 
 

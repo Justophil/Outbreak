@@ -203,6 +203,7 @@
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Prefabs\Effects" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Scenes\S_Content_Overview" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Animations\Character\ARs" />
+     <Folder Include="Assets\Effects" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Materials\Environment" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Prefabs\Effects\Explosions" />
      <None Include="Assets\Low Poly Shooter Pack - Free Sample\Art\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
