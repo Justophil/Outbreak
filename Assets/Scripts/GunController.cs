@@ -54,23 +54,7 @@ namespace Outbreak
         ///
         /// 
         /// </summary>
-        #region FIELDS SERIALIZED
-        
-		[Header("Cameras")]
-
-		[Tooltip("Normal Camera.")]
-		[SerializeField]
-		private Camera cameraWorld;
-
-		[Header("Animation")]
-
-		[Tooltip("Determines how smooth the locomotion blendspace is.")]
-		[SerializeField]
-		private float dampTimeLocomotion = 0.15f;
-
-		[Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")]
-		[SerializeField]
-		private float dampTimeAiming = 0.3f;
+       
 		
 		[Header("Animation Procedural")]
 		
@@ -78,9 +62,7 @@ namespace Outbreak
 		[SerializeField]
 		private Animator characterAnimator;
 		private int layerOverlay;
-
-
-		#endregion
+		private int layerHolster;
 		
 		/// <summary>
 		/// ////////
@@ -118,6 +100,7 @@ namespace Outbreak
 		private void Start()
 		{
 			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
+			characterAnimator.GetLayerIndex("Layer Holster");
 		}
 
 		private void Update()
@@ -144,20 +127,21 @@ namespace Outbreak
             //
             
             
-            if (currentWeapon != null)
+            if (equipped != null)
             {
                 // // gunTransform.localRotation = Quaternion.Euler(currentRotation);
                 // HandleGunMovement();
                 // //
                 // // // Toggle ADS
-                // // if (Input.GetMouseButtonDown(1))
-                // // {
-                // //     ToggleADS(true);
-                // // }
-                // // else if (Input.GetMouseButtonUp(1))
-                // // {
-                // //     ToggleADS(false);
-                // // }    
+                if (Input.GetMouseButtonDown(1))
+                {
+	                Debug.Log("Aiming");
+                    ToggleADS(true);
+                }
+                else if (Input.GetMouseButtonUp(1))
+                {
+                    ToggleADS(false);
+                }    
             }
         }
 
@@ -182,7 +166,8 @@ namespace Outbreak
 	        equipped = loadout[currentIndex];
 	        //Activate the newly-equipped weapon.
 	        equipped.gameObject.SetActive(true);
-	        
+	        characterAnimator.Play("Unholster", layerHolster, 0);
+
 	        MonoBehaviour[] scriptsOnItem = equipped.GetComponents<MonoBehaviour>();
 	        foreach (var script in scriptsOnItem)
 	        {
@@ -221,36 +206,39 @@ namespace Outbreak
             targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
         }
 
-        // private void ToggleADS(bool isAiming)
-        // {
-        //     // Transform t_anchor = currentWeapon.transform.Find("Anchor");
-        //     Transform t_anchor = currentWeapon.transform.Find("Anchor");
-        //     Transform t_state_ads = currentWeapon.transform.Find("States/ADS");
-        //     Transform t_state_hip = currentWeapon.transform.Find("States/Hip");
-        //
-        //     t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
-        //
-        //     
-        //     if (isAiming)
-        //     {
-        //         // Transition to ADS
-        //         t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_ads.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
-        //         // StartCoroutine(SetADS(_playerCamera.fieldOfView, adsFOV, 0.2f));
-        //         // targetGunPosition = Vector3.zero; // Adjust gun position for ADS
-        //         Debug.Log(t_anchor.position);
-        //     }
-        //     else
-        //     {
-        //         // Transition out of ADS
-        //         t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
-        //         Debug.Log(t_anchor.position);
-        //
-        //         // StartCoroutine(SetADS(_playerCamera.fieldOfView, initialFOV, 0.2f));
-        //         // targetGunPosition = initialGunPosition; // Reset gun position for hip fire
-        //     }
-        //     
-        //     this.isAiming = isAiming;
-        // }
+        private void ToggleADS(bool isAiming)
+        {
+	        characterAnimator.SetBool("Aim", isAiming);
+
+	        
+            // // Transform t_anchor = currentWeapon.transform.Find("Anchor");
+            // Transform t_anchor = currentWeapon.transform.Find("Anchor");
+            // Transform t_state_ads = currentWeapon.transform.Find("States/ADS");
+            // Transform t_state_hip = currentWeapon.transform.Find("States/Hip");
+            //
+            // t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
+            //
+            //
+            // if (isAiming)
+            // {
+            //     // Transition to ADS
+            //     t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_ads.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
+            //     // StartCoroutine(SetADS(_playerCamera.fieldOfView, adsFOV, 0.2f));
+            //     // targetGunPosition = Vector3.zero; // Adjust gun position for ADS
+            //     Debug.Log(t_anchor.position);
+            // }
+            // else
+            // {
+            //     // Transition out of ADS
+            //     t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
+            //     Debug.Log(t_anchor.position);
+            //
+            //     // StartCoroutine(SetADS(_playerCamera.fieldOfView, initialFOV, 0.2f));
+            //     // targetGunPosition = initialGunPosition; // Reset gun position for hip fire
+            // }
+            //
+            // this.isAiming = isAiming;
+        }
 
         // private IEnumerator SetADS(float startFOV, float targetFOV, float duration)
         // {

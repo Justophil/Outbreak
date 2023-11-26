@@ -5,43 +5,24 @@ using InfimaGames.LowPolyShooterPack;
 using Outbreak;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Animation")]
-    [Tooltip("Determines how smooth the locomotion blendspace is.")]
-    [SerializeField]
-    private float dampTimeLocomotion = 0.15f;
-
-    [Tooltip("How smoothly we play aiming transitions. Beware that this affects lots of things!")]
-    [SerializeField]
-    private float dampTimeAiming = 0.3f;
-
+    
     [Header("Animation Procedural")]
     [Tooltip("Character Animator.")]
     [SerializeField]
     private Animator characterAnimator;
     
-    [Header("Inventory")]
-		
-    [Tooltip("Inventory.")]
-    [SerializeField]
-    private InventoryBehaviour inventory;
-    
-    private Equipment equippedWeapon;
-    private WeaponAttachmentManagerBehaviour weaponAttachmentManager;
-    private ScopeBehaviour equippedWeaponScope;
-    private MagazineBehaviour equippedWeaponMagazine;
+    private Equipment _equippedWeapon;
+    private WeaponAttachmentManagerBehaviour _weaponAttachmentManager;
+    private ScopeBehaviour _equippedWeaponScope;
+    private MagazineBehaviour _equippedWeaponMagazine;
 
-    
-    /// <summary>
-    /// /////////
-    /// </summary>
-    public bool CanMove { get; private set; } = true;
+    private bool CanMove { get; set; } = true;
     private float initialFOV;
     private float adsFOV = 30.0f;
-    public Transform gunTransform;
-    public Vector3 playerVelocity;
     private ControllerColliderHit _contact;
     [SerializeField] private bool canUseHeadbob = true;
     private bool _isSprinting = false;
@@ -56,8 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 15.0f;
     public float rotSpeed = 1.0f;
 
-    private bool _isJumping = false;
-    private bool _canJump = true;
+    [SerializeField] private bool canJump = true;
 
 
     [Header("Look Parameters")] 
@@ -66,8 +46,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(1, 100)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 100)] private float lowerLookLimit = 80.0f;
 
-    private Vector3 moveDirection;
-    private Vector2 currentInput;
+    private Vector3 _moveDirection;
+    private Vector2 _currentInput;
 
     private float rotationX = 0;
 
@@ -76,15 +56,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float bobAmount = 0.05f;      
     [SerializeField] private float sprintBobMultiplier = 1.5f; 
 
-    private Vector3 initialCameraPosition;
-    private float headbobTimer = 0;
-    private bool isSprintingLastFrame = false;
+    private Vector3 _initialCameraPosition;
+    private float _headbobTimer = 0;
+    private bool _isSprintingLastFrame = false;
 
     private Rigidbody _controller;
     private Camera _playerCamera;
-    private CharacterKinematics characterKinematics;
+    private CharacterKinematics _characterKinematics;
     private GunController _gunController;
-    private Vector3 originalPosition;
+    private Vector3 _originalPosition;
 
     public float groundDistance = 0.85f;
     public LayerMask groundLayer;
@@ -99,22 +79,12 @@ public class PlayerMovement : MonoBehaviour
         _playerCamera = GetComponentInChildren<Camera>();
         initialFOV = _playerCamera.fieldOfView;
         
-        characterKinematics = GetComponent<CharacterKinematics>();
+        _characterKinematics = GetComponent<CharacterKinematics>();
         _gunController = GetComponent<GunController>();
-        // //Initialize Inventory.
-        // inventory.Init();
         
-        //Refresh
-        // RefreshWeaponSetup();
-
-
-        initialCameraPosition = _playerCamera.transform.localPosition; // Store the original camera position
+        _initialCameraPosition = _playerCamera.transform.localPosition;
         
-        // gunTransform = transform.GetChild(0).GetChild(0);
-        // initialGunPosition = gunTransform.localPosition;
-        // targetGunPosition = initialGunPosition;
-        
-        originalPosition = transform.position;
+        _originalPosition = transform.position;
 
     }
 
@@ -123,27 +93,6 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private void RefreshWeaponSetup()
-    {
-        //Weapon equip check
-        if ((equippedWeapon = _gunController.GetEquipped()) == null)
-            return;
-        characterAnimator.runtimeAnimatorController = equippedWeapon.GetAnimatorController();
-
-        // weaponAttachmentManager = equippedWeapon.GetAttachmentManager();
-        // if (weaponAttachmentManager == null) 
-        //     return;
-			     //
-        // equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
-        //
-        // equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
-    }
-/// <summary>
-/// 
-/// </summary>
 
     private void Update()
     {
@@ -154,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
                 HandleHeadbob();
             }
             
-            // ProcessMovement();
             UpdateCameraRotation();
         }
 
@@ -169,32 +117,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CanMove)
-        {
-
-                
+        if (CanMove) 
             ProcessMovement();
-
-        }
     }
 
 
     void LateUpdate()
-        {
-            // if (equippedWeapon == null)
-            //     return;
-            //
+    {
+            if (_equippedWeapon == null)
+                return;
+            
             // if (equippedWeaponScope == null)
             //     return;
-			         //
                      
-            //Make sure that we have a kinematics component!
-            if(characterKinematics != null)
+            if(_characterKinematics != null)
             {
-                //Compute.
-                characterKinematics.Compute();
+                _characterKinematics.Compute();
             }
-        }
+    }
 
     private void UpdateCameraRotation()
     {
@@ -212,31 +152,23 @@ public class PlayerMovement : MonoBehaviour
     {
         float speed = GetMovementSpeed();
         CalculateMovementVector();
-        // RotateCharacter();
         ApplyMovementToController();
-        // Debug.Log(IsGrounded());
         if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
             HandleJump();
-        }
+        
 
     }
 
     private bool IsGrounded()
     {
         RaycastHit hit;
-        bool grounded = Physics.Raycast(transform.position + new Vector3(0, 1f, 0), Vector3.down, out hit, groundDistance, groundLayer);
-    
-        // Debug information
-        // if (grounded)
-        // {
-        //     Debug.Log("Ground hit at: " + hit.point);
-        // }
-        // else
-        // {
-        //     Debug.Log("Not grounded");
-        // }
-
+        bool grounded = Physics.Raycast(
+            transform.position + new Vector3(0, 1f, 0),
+            Vector3.down,
+            out hit,
+            groundDistance,
+            groundLayer
+            );
         
         return grounded;
     }
@@ -244,31 +176,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateMovementVector()
     {
-        // currentInput = new Vector2(walkSpeed * Input.GetAxis("Horizontal"), walkSpeed * Input.GetAxis("Vertical"));
-        // float moveDirectionY = moveDirection.y;
-        // moveDirection =
-        //     (transform.TransformDirection(Vector3.forward) * currentInput.x)
-        //     + (transform.TransformDirection(Vector3.right) * currentInput.y);
-        // moveDirection.y = moveDirectionY;
 
         float horInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
         Vector3 right = _controller.transform.right;
         Vector3 forward = Vector3.Cross(right, Vector3.up);
         
-        moveDirection = (right * horInput) + (forward * vertInput);
-        moveDirection *= GetMovementSpeed();
-        moveDirection = Vector3.ClampMagnitude(moveDirection, GetMovementSpeed());
-    }
-
-    private void RotateCharacter()
-    {
-        if (moveDirection != Vector3.zero)
-        {
-            Quaternion direction = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
-            // gunTransform.rotation = transform.rotation;
-        }
+        _moveDirection = (right * horInput) + (forward * vertInput);
+        _moveDirection *= GetMovementSpeed();
+        _moveDirection = Vector3.ClampMagnitude(_moveDirection, GetMovementSpeed());
     }
 
     private void HandleJump()
@@ -276,7 +192,6 @@ public class PlayerMovement : MonoBehaviour
             _controller.AddForce(new Vector3(0,jumpHeight,0), ForceMode.Impulse);
     }
     
-
     private void HandleHeadbob()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -285,12 +200,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving && isGrounded)
         {
-            headbobTimer += Time.deltaTime * bobFrequency;
+            _headbobTimer += Time.deltaTime * bobFrequency;
 
-            float bobX = Mathf.Sin(headbobTimer) * bobAmount;
-            float bobY = Mathf.Cos(headbobTimer * 2.0f) * bobAmount;
+            float bobX = Mathf.Sin(_headbobTimer) * bobAmount;
+            float bobY = Mathf.Cos(_headbobTimer * 2.0f) * bobAmount;
 
-            Vector3 newCameraPosition = initialCameraPosition + new Vector3(bobX, bobY, 0);
+            Vector3 newCameraPosition = _initialCameraPosition + new Vector3(bobX, bobY, 0);
 
             if (_isSprinting)
             {
@@ -302,21 +217,22 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _playerCamera.transform.localPosition = Vector3.Lerp(_playerCamera.transform.localPosition, initialCameraPosition, Time.deltaTime * 10.0f);
-            headbobTimer = 0;
+            _playerCamera.transform.localPosition = Vector3.Lerp(_playerCamera.transform.localPosition, _initialCameraPosition, Time.deltaTime * 10.0f);
+            _headbobTimer = 0;
         }
     }
 
     private void ApplyMovementToController()
     {
-        moveDirection.y = _vertSpeed;
+        _moveDirection.y = _vertSpeed;
         float speed = GetMovementSpeed();
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized;
-        moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection *= speed;
+        _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized;
+        _moveDirection = transform.TransformDirection(_moveDirection);
+        _moveDirection *= speed;
 
-        _controller.velocity = new Vector3(moveDirection.x, _controller.velocity.y, moveDirection.z);
+        _controller.velocity = new Vector3(_moveDirection.x, _controller.velocity.y, _moveDirection.z);
     }
+
     
     private float GetMovementSpeed()
     {

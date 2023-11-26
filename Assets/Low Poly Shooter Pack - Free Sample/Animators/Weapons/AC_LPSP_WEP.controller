@@ -9,8 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102109995698965220, guid: 027ae8cddc85a484fa5fd415d19d7a8e,
-    type: 2}
+  m_DstState: {fileID: 1102109995698965220, guid: 027ae8cddc85a484fa5fd415d19d7a8e, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -37,13 +36,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Aiming
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Layer Base
@@ -66,8 +65,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102590908640277064, guid: 027ae8cddc85a484fa5fd415d19d7a8e,
-    type: 2}
+  m_DstState: {fileID: 1102590908640277064, guid: 027ae8cddc85a484fa5fd415d19d7a8e, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -359,8 +357,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102109995698965220, guid: 027ae8cddc85a484fa5fd415d19d7a8e,
-    type: 2}
+  m_DstState: {fileID: 1102109995698965220, guid: 027ae8cddc85a484fa5fd415d19d7a8e, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
