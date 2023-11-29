@@ -7,15 +7,19 @@ TagManager:
   - Concrete
   - Ground
   - Zombie
+  - GasTank
+  - Target
+  - Metal
+  - ExplosiveBarrel
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Fire
+  - AI
   - 
   - 
   - 
