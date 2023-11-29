@@ -123,10 +123,13 @@ namespace Outbreak
             {
 	            if (equipped.IsAutomatic())
 	            {
+		            Debug.Log("Rapid Fire");
 		            InvokeRepeating("Fire", 0.01f, 0.1f/*equipped.GetRateOfFire() * (1/60)*/);
 	            }
 	            else
 	            {
+		            Debug.Log("Fire");
+
 		            Fire();   
 	            }
             }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028359, g: 0.22571385, b: 0.30692258, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -402,6 +402,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5948020283235200890, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+      propertyPath: automatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258019591476335010, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+      propertyPath: automatic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8139533612345847180, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
       propertyPath: m_Name
       value: Arms
@@ -450,7 +458,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5948020283235200890, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+    - {fileID: 8811093986634857458, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+    - {fileID: 6261743583040180564, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+    - {fileID: 2756404731324717808, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+    - {fileID: 436675948303456025, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+    - {fileID: 7031494337160959882, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
 --- !u!1 &954809834
 GameObject:
