@@ -47,6 +47,9 @@ namespace Outbreak
 
         private bool isAiming = false;
         
+        float nextFire;
+
+        
         /// <summary>
         /// /////////////
         ///
@@ -116,10 +119,21 @@ namespace Outbreak
                 Equip(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetMouseButtonDown(0))
             {
-	            Fire();
-	            characterAnimator.CrossFade("Fire", 0.05f, layerOverlay, 0);
+	            if (equipped.IsAutomatic())
+	            {
+		            InvokeRepeating("Fire", 0.01f, 0.1f/*equipped.GetRateOfFire() * (1/60)*/);
+	            }
+	            else
+	            {
+		            Fire();   
+	            }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+	            CancelInvoke();
             }
         
             // targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
@@ -204,6 +218,7 @@ namespace Outbreak
         private void Fire()
         {
 	        equipped.Fire();
+	        characterAnimator.CrossFade("Fire", 0.05f, layerOverlay, 0);
         }
         
         public void RecoilFire()

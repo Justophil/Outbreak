@@ -155,6 +155,23 @@ using UnityEngine;
                 Debug.Log("Ray did not hit anything.");
             }
         }
+
+        public IEnumerator RapidFire()
+        {
+            if (automatic)
+            {
+                while (true)
+                {
+                    Fire();
+                    yield return new WaitForSeconds(1 / GetRateOfFire());   
+                }
+            }
+            else
+            {
+                Fire();
+                yield return null;
+            }
+        }
         
         IEnumerator BulletHit(RaycastHit hit)
         {
