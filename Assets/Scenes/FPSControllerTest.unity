@@ -410,6 +410,14 @@ PrefabInstance:
       propertyPath: automatic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6258019591129254693, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+      propertyPath: rateOfFire
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258019591129254693, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
+      propertyPath: roundsPerMinutes
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6258019591476335010, guid: a4b08561e28f06c4985966c35c524c1b, type: 3}
       propertyPath: automatic
       value: 1
@@ -652,7 +660,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 05496369f468fb048ade96c3e7a97192, type: 2}
+  - {fileID: 2100000, guid: f47e38b127e66d7449229b1fa2640281, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
