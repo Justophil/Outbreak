@@ -19,7 +19,7 @@ using UnityEngine;
 
         [Tooltip("Amount of shots this weapon can shoot in a minute. It determines how fast the weapon shoots.")]
         [SerializeField] 
-        private int roundsPerMinutes = 200;
+        private float rateOfFire = 0.1f;
 
         [Tooltip("Mask of things recognized when firing.")]
         [SerializeField]
@@ -112,7 +112,7 @@ using UnityEngine;
         public int GetAmmunitionCurrent() => ammunitionCurrent;
         
         public bool IsAutomatic() => automatic;
-        public float GetRateOfFire() => roundsPerMinutes;
+        public float GetRateOfFire() => rateOfFire;
         
         // public bool IsFull() => ammunitionCurrent == magazineBehaviour.GetAmmunitionTotal();
         public bool HasAmmunition() => ammunitionCurrent > 0;
