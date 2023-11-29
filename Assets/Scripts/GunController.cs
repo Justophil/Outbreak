@@ -160,6 +160,11 @@ namespace Outbreak
 	        if (equipped != null)
 		        equipped.gameObject.SetActive(false);
 
+	        
+	        //layerHolster
+	        layerHolster = characterAnimator.GetLayerIndex("Layer Holster");
+
+	        
 	        //Update index.
 	        currentIndex = index;
 	        //Update equipped.
