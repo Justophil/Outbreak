@@ -122,6 +122,7 @@
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Sprites\Icons\Weapons" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample\Scripts" />
      <Folder Include="Assets\Textures\PBR_Grass_Textures\Scripts" />
+     <Folder Include="Assets\SimpleSky\Textures" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Audio\SFX\Weapons\Reloads" />
      <None Include="Assets\Low Poly Shooter Pack - Free Sample\Art\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <Folder Include="Assets\Polytope Studio\Lowpoly_Environments\Sources" />
@@ -142,6 +143,7 @@
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Fonts" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\TextMesh Pro\Resources\Sprite Assets" />
      <None Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Shaders\PT_Water_Shader_WebGl.shader" />
+     <Folder Include="Assets\SimpleSky\Prefabs" />
      <Folder Include="Assets\4K 3D Weapons Mega Pack\Rifle 1" />
      <Folder Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Meshes\Rocks" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Audio\SFX\Weapons\Aiming" />
@@ -192,6 +194,7 @@
      <Folder Include="Assets\4K 3D Weapons Mega Pack\Rifle 1\Prefabs" />
      <Folder Include="Assets\Polytope Studio\Lowpoly_Environments\Prefabs\Trees" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample\Models" />
+     <Folder Include="Assets\SimpleSky\Models" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Materials\Casings" />
      <Folder Include="Assets\Polytope Studio\Lowpoly_Village\Prefabs\Modular\Bridge" />
      <Folder Include="Assets\Soldier\models" />
@@ -230,6 +233,7 @@
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Textures\Environment" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Audio\SFX\Weapons\Casings" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample\Materials\High Quality" />
+     <Folder Include="Assets\SimpleSky\Materials" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Utilities" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Meshes\Weapons\_Common" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample\Prefabs\Base\High Quality" />
@@ -273,12 +277,14 @@
      <None Include="Assets\Low Poly Shooter Pack - Free Sample\Art\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <Folder Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Textures" />
      <None Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Shaders\PT_Water_Shader.shader" />
+     <Folder Include="Assets\SimpleSky" />
      <None Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Shaders\PT_Vegetation_Flowers_Shader.shader" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample\Prefabs\SimpleMovement\Mobile" />
      <None Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Shaders\PT_Rock_Shader_VS.shader" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Animation" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample\Prefabs\Base\Mobile" />
      <Folder Include="Assets\Textures\ADG_Textures" />
+     <None Include="Assets\SimpleSky\ReadMe.txt" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\TextMesh Pro\Resources\Shaders" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Prefabs\Casings" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Animations\Character\_Common" />
@@ -350,6 +356,7 @@
      <Folder Include="Assets\4K 3D Weapons Mega Pack\Rifle 1\Textures\4K\Rifle 1 Stock" />
      <None Include="Assets\Polytope Studio\Lowpoly_Environments\Sources\Shaders\PT_Rock_Shader.shader" />
      <None Include="Assets\Low Poly Shooter Pack - Free Sample\Art\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+     <Folder Include="Assets\SimpleSky\Scenes" />
      <Folder Include="Assets\Supercyan Character Pack Zombie Sample" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Textures\Character" />
      <None Include="Assets\Textures\3D Haven\Free Fantasy Terrain Textures\Documentation\Version Log.txt" />
