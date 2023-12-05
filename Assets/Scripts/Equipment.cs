@@ -71,6 +71,7 @@ using UnityEngine;
         private GameObject prefabFlashParticles;
 
         public GameObject bulletHole;
+        public int damage = 10;
 
 
         
@@ -147,8 +148,16 @@ using UnityEngine;
             if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
             {
                 Debug.Log("Ray hit: " + hit.collider.gameObject.name);
-                StartCoroutine(BulletHit(hit));
-
+                
+                ZombieStats zombieStats = hit.collider.gameObject.GetComponent<ZombieStats>();
+                if (zombieStats != null)
+                {
+                    zombieStats.DecreaseHealth(damage);
+                }
+                if (!hit.collider.CompareTag("Zombie") || !hit.collider.CompareTag("BulletHole"))
+                {
+                    StartCoroutine(BulletHit(hit));
+                }
             }
             else
             {

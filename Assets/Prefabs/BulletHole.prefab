@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3794949441875884673}
   m_Layer: 0
   m_Name: BulletHole
-  m_TagString: Untagged
+  m_TagString: BulletHole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

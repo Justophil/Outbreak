@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
-public class ZombieBehavior : MonoBehaviour
+
+namespace Zombie
 {
+  public class ZombieBehavior : MonoBehaviour
+  {
     public GameObject player;
     public bool isPlayerInAttackRange;
     public NavMeshAgent agent;
@@ -83,7 +83,7 @@ public class ZombieBehavior : MonoBehaviour
       if(Vector3.Distance(agent.destination, agent.transform.position) < 1.5f) {
         return true;
       }
-		  return false;
+      return false;
     }
 
     private void OnTriggerEnter(Collider col)
@@ -121,4 +121,5 @@ public class ZombieBehavior : MonoBehaviour
         GameManager.Health -= 10;
       }
     }
+  }
 }
