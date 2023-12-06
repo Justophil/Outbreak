@@ -19,6 +19,9 @@ public class ZombieStats : MonoBehaviour
         FastZombie = 3
     }
 
+    private GameManager gameManager;
+    
+
     public ZombieType zombieType;
     private int health;
     private int speed;
@@ -26,6 +29,7 @@ public class ZombieStats : MonoBehaviour
     void Start()
     {
         SetUpStats();
+        gameManager = GameManager.Instance;
     }
 
     void SetUpStats()
@@ -57,6 +61,7 @@ public class ZombieStats : MonoBehaviour
         if (health <= 0)
         {
             // Put animation of death here
+            gameManager.IncrementScore(20);
             Destroy(gameObject);
         }
     }

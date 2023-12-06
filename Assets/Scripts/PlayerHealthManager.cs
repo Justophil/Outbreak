@@ -19,5 +19,15 @@ public class PlayerHealthManager : MonoBehaviour
         healthBar.value = health;
     }
 
+      public void DecrementHealth() // Upon death of the player,     score decrease a good amount.
+    {
+        healthBar.value -= 50;
+        if (healthBar.value <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
     
 }

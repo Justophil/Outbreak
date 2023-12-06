@@ -12,6 +12,6 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void Update(){
-       // Score.text = "Score: " + GameManager.Score; 
+        Score.text = "Score: " + GameManager.Score; 
     }
 }

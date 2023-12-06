@@ -22,12 +22,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + index);
     }
     
-    public static void IncrementScore() // Every Zombie kill, could have multiplier paarameter for special zombies
+    public void IncrementScore(int score) // Every Zombie kill, could have multiplier paarameter for special zombies
     {
-        Score = Score + 50;
+        Score = Score + score;
     }
     
-    public static void DecrementScore() // Upon death of the player,     score decrease a good amount.
+    public void DecrementScore() // Upon death of the player,     score decrease a good amount.
     {
         Score = Score - 500;
         if (Score < 0) Score = 0;

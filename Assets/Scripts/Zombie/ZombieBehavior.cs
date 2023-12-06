@@ -13,12 +13,14 @@ namespace Zombie
     public float maxDistance = 20;
     // public Transform[] points;
     private int destPoint = 0;
+    private PlayerHealthManager healthManager;
     // private Animator animator;
     
     // Start is called before the first frame update
     void Start()
     {
       // animator = GetComponent<Animator>();
+      healthManager = GetComponent<PlayerHealthManager>();
       GotoNextPoint();
     }
 
@@ -90,6 +92,8 @@ namespace Zombie
     {
       if (col.gameObject.tag == "Player")
       {
+        Debug.Log("Ouch!");
+        healthManager.DecrementHealth();
         StopMovement();
         transform.LookAt(player.transform.position);
         isPlayerInAttackRange = true;
