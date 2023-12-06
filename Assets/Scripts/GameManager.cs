@@ -32,4 +32,5 @@ public class GameManager : MonoBehaviour
         Score = Score - 500;
         if (Score < 0) Score = 0;
     }
+
 }
