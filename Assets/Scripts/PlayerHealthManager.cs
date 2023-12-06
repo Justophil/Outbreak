@@ -7,6 +7,8 @@ public class PlayerHealthManager : MonoBehaviour
 {
     public Slider healthBar;
     float health = GameManager.Health;
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class PlayerHealthManager : MonoBehaviour
         healthBar.value -= 50;
         if (healthBar.value <= 0)
         {
+            gameManager.LoadLevel(0);
             Destroy(gameObject);
         }
 

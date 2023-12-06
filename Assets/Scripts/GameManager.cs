@@ -17,14 +17,18 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(Instance);
     }
     
-    public static void LoadLevel(int index = 0) // Load same Level, Index = 1 to go to next level
+    public void LoadLevel(int index = 0) // Load same Level, Index = 1 to go to next level
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + index);
+        SceneManager.LoadScene(index);
     }
     
     public void IncrementScore(int score) // Every Zombie kill, could have multiplier paarameter for special zombies
     {
         Score = Score + score;
+        if (Score == 400)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
     
     public void DecrementScore() // Upon death of the player,     score decrease a good amount.

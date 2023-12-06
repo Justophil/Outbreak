@@ -2351,17 +2351,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1540182916920672023, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1579067108133867144, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2079999886601358214, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
       propertyPath: far clip plane
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3523763212109800195, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
       propertyPath: runSpeed
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3523763212109800195, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
       propertyPath: walkSpeed
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523763212109800195, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
+      propertyPath: jumpHeight
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000909534668560283, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5729996206722388389, guid: ea3b2dc83fda43c44a6ba11df9a1ec19, type: 3}
       propertyPath: m_RootOrder

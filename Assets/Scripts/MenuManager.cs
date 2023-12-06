@@ -5,9 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    private GameManager gameManager;
+
+ 
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+
+    }
+
     public void OnGameStart(){
-         // GameManager.LoadLevel(1); // Loading First level
-         SceneManager.LoadScene("FPSControllerTest"); // Loading First level
+        gameManager.LoadLevel(1); // Loading First level
+        //  SceneManager.LoadScene("Valley"); // Loading First level
 
     }
     public void OnGameExit(){

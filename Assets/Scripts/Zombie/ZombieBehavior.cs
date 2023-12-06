@@ -31,7 +31,7 @@ namespace Zombie
       // animator.SetFloat("Speed",agent.speed);
       //if(SeePlayer())
       {
-        Debug.Log(agent.transform.position);
+        // Debug.Log(agent.transform.position);
         agent.destination = player.transform.position;
         agent.speed = 3.0f;
         // Go to Player
@@ -88,9 +88,9 @@ namespace Zombie
       return false;
     }
 
-    private void OnTriggerEnter(Collider col)
+    private void OnCollisionEnter(Collision col)
     {
-      if (col.gameObject.tag == "Player")
+      if (col.collider.gameObject.CompareTag("Player"))
       {
         Debug.Log("Ouch!");
         healthManager.DecrementHealth();
@@ -101,9 +101,9 @@ namespace Zombie
         Invoke("ResumeMovement",2.0f);
       }
     }
-    private void OnTriggerExit(Collider col)
+    private void OnCollisionExit(Collision col)
     {
-      if (col.gameObject.tag == "Player")
+      if (col.collider.gameObject.CompareTag("Player"))
       {
         isPlayerInAttackRange = false;
         // animator.SetBool("Attack", false);
