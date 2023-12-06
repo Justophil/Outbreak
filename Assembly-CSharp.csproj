@@ -45,6 +45,7 @@
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Legacy\DebrisScript.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Character\CharacterKinematics.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Weapons\Muzzle.cs" />
+     <Compile Include="Assets\Scripts\Door.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Legacy\ExplosiveBarrelScript.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
@@ -55,6 +56,7 @@
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Legacy\CasingScript.cs" />
      <Compile Include="Assets\Scripts\Player\GroundCheck.cs" />
      <Compile Include="Assets\Scripts\ScriptableObjectsGen\Weapon.cs" />
+     <Compile Include="Assets\Supercyan Character Pack Zombie Sample\Scripts\ZombieFree.cs" />
      <Compile Include="Assets\Scripts\Player\Headbob.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Weapons\WeaponBehaviour.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Character\InventoryBehaviour.cs" />
@@ -67,7 +69,9 @@
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Interface\TextTutorial.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Interface\ImageWeapon.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Legacy\ProjectileScript.cs" />
+     <Compile Include="Assets\Supercyan Character Pack Zombie Sample\Scripts\ZombieCameraLogic.cs" />
      <Compile Include="Assets\Polytope Studio\Lowpoly_Demos\Environment_Free\Helpers\PlayerMovement.cs" />
+     <Compile Include="Assets\Supercyan Character Pack Zombie Sample\Scripts\ZombieCharacterControl.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Weapons\ScopeBehaviour.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Weapons\Weapon.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -114,9 +118,6 @@
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Interface\TextTimescale.cs" />
      <Compile Include="Assets\Low Poly Shooter Pack - Free Sample\Code\Legacy\PlayParticles.cs" />
      <Compile Include="Assets\Scripts\PlayerHealthManager.cs" />
-     <Compile Include="Assets\Supercyan Character Pack Zombie Sample\Scripts\ZombieCharacterControl.cs" />
-     <Compile Include="Assets\Supercyan Character Pack Zombie Sample\Scripts\ZombieFree.cs" />
-     <Compile Include="Assets\Supercyan Character Pack Zombie Sample\Scripts\ZombieCameraLogic.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Polytope Studio\Lowpoly_Environments\Prefabs\Flowers" />
      <Folder Include="Assets\Low Poly Shooter Pack - Free Sample\Art\Sprites\Icons\Weapons" />

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 528506774677081659}
   - component: {fileID: 3529266890537746846}
   - component: {fileID: 1665925868165018964}
+  - component: {fileID: 8770901310229292980}
   m_Layer: 0
   m_Name: PT_Fruit_Tree_01_green_cut
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873261478477796481}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.5196, y: -238.29, z: 36.55}
+  m_LocalScale: {x: 68.97366, y: 68.97366, z: 68.97366}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,3 +85,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &8770901310229292980
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873261478477796481}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3.6274862
+  m_Height: 7.254973
+  m_Direction: 1
+  m_Center: {x: -0.051782444, y: 3.452011, z: -0.5376552}

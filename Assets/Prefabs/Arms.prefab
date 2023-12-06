@@ -1835,10 +1835,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 0}
   canUseHeadbob: 1
-  walkSpeed: 5
-  runSpeed: 8
+  walkSpeed: 12
+  runSpeed: 16
   minFall: -1.5
-  jumpHeight: 15
+  jumpHeight: 20
   jumpCooldown: 0.25
   airMultiplier: 0.4
   rotSpeed: 1
@@ -2514,7 +2514,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 50
   field of view: 90
   orthographic: 0
   orthographic size: 5
@@ -3494,6 +3494,7 @@ MonoBehaviour:
   spriteBody: {fileID: 0}
   prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
+  damage: 10
 --- !u!1 &5721970832824065903 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8438767940922161081, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
@@ -3525,6 +3526,7 @@ MonoBehaviour:
   spriteBody: {fileID: 0}
   prefabFlashParticles: {fileID: 0}
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
+  damage: 10
 --- !u!4 &8115852502533457577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5392299989625581183, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
