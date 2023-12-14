@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 31
+  controlID: 106
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 605
     height: 1299
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -318,22 +318,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Damiano\Documents\Semester 5\Game Prog 2\Outbreak
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3cef0000
-    m_LastClickedID: 61244
-    m_ExpandedIDs: 000000002cef000000ca9a3b
+    m_SelectedIDs: 3eef0000
+    m_LastClickedID: 61246
+    m_ExpandedIDs: 0000000030ef00004eef00004ef500008af500008cf5000090f5000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -491,9 +491,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 44f40000
-      m_LastClickedID: 62532
-      m_ExpandedIDs: 9a2efeffd83afeffdc7ffeff288ffeff6c96feff06a3feff0286ffff4887ffff
+      m_SelectedIDs: 861affff
+      m_LastClickedID: -58746
+      m_ExpandedIDs: 2211ffff906affffa876ffff0a78ffff2c86ffff4887ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -776,9 +776,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1887.459, y: 363.47018, z: 1046.1139}
+    m_Target: {x: 1134.1737, y: 96.04539, z: 1586.5042}
     speed: 2
-    m_Value: {x: 1887.459, y: 363.47018, z: 1046.1139}
+    m_Value: {x: 1134.1737, y: 96.04539, z: 1586.5042}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -825,20 +825,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.1940937, y: -0.78133047, z: 0.29430878, w: -0.51494175}
+    m_Target: {x: 0.089635, y: 0.80773634, z: -0.1272691, w: 0.56857145}
     speed: 2
-    m_Value: {x: -0.19498236, y: -0.7798086, z: 0.29373512, w: -0.5173009}
+    m_Value: {x: 0.08774388, y: 0.80898976, z: -0.1249807, w: 0.5676411}
   m_Size:
-    m_Target: 10.084913
+    m_Target: 10.538734
     speed: 2
-    m_Value: 10.084913
+    m_Value: 10.538734
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1.6401803
-    m_SpeedNormalized: 0.8200002
+    m_Speed: 1.7001503
+    m_SpeedNormalized: 0.85000014
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
