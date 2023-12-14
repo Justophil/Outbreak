@@ -22,4 +22,12 @@ public class MenuManager : MonoBehaviour
     public void OnGameExit(){
         Application.Quit(); // Exit Game
     }
+
+    public void Controls(){
+        SceneManager.LoadScene("Controls");
+    }
+
+    public void BackBtn(){
+        SceneManager.LoadScene(0);
+    }
 }
