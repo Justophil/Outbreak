@@ -12,11 +12,21 @@ public class MenuManager : MonoBehaviour
     {
         gameManager = GameManager.Instance;
 
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager instance is null! Make sure GameManager is properly initialized.");
+        }
+        else
+        {
+            Debug.Log("GameManager instance accessed!");
+        }
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void OnGameStart(){
-        gameManager.LoadLevel(1); // Loading First level
-        //  SceneManager.LoadScene("Valley"); // Loading First level
+        // gameManager.LoadLevel(1); // Loading First level
+        SceneManager.LoadScene(1); // Loading First level
 
     }
     public void OnGameExit(){
