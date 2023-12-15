@@ -15,6 +15,8 @@ public class PlayerHealthManager : MonoBehaviour
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
         gameManager = FindObjectOfType<GameManager>();
+        healthBar.value = health;
+        Debug.Log("Starting Health: " + health);
 
     }
     // Update is called once per frame
@@ -23,22 +25,22 @@ public class PlayerHealthManager : MonoBehaviour
         healthBar.value = health;
     }
 
-      public void DecrementHealth() // Upon death of the player,     score decrease a good amount.
+    public void DecrementHealth() // Upon death of the player,     score decrease a good amount.
     {
         Debug.Log("Player Hit");
-        healthBar.value -= 10;
-        if (healthBar.value <= 0)
+        health -= 10;
+        if (health <= 0)
         {
             gameManager.LoadLevel(0);
             Destroy(gameObject);
         }
     }
 
-    public void OnTriggerEnter(Collider other){
-        if(other.tag == "Zombie"){
-            DecrementHealth();
-        }
-    }
+    // public void OnTriggerEnter(Collider other){
+    //     if(other.tag == "Zombie"){
+    //         DecrementHealth();
+    //     }
+    // }
 
     
 }

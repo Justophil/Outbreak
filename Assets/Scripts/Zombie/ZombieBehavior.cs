@@ -94,13 +94,13 @@ namespace Zombie
       if (col.collider.gameObject.CompareTag("Player"))
       {
         Debug.Log("Ouch!");
-        healthManager.DecrementHealth();
         StopMovement();
         // HitPlayer();
         transform.LookAt(player.transform.position);
         isPlayerInAttackRange = true;
         // animator.SetBool("Attack", true);
         Invoke("ResumeMovement",2.0f);
+        InvokeRepeating("HitPlayer", 0f, 1f);
       }
     }
     private void OnCollisionExit(Collision col)
@@ -108,6 +108,7 @@ namespace Zombie
       if (col.collider.gameObject.CompareTag("Player"))
       {
         isPlayerInAttackRange = false;
+        CancelInvoke("HitPlayer");
         // animator.SetBool("Attack", false);
         ResumeMovement();
       }
@@ -123,10 +124,12 @@ namespace Zombie
     }
     public void HitPlayer()
     {
-      if (isPlayerInAttackRange) {
-        Debug.Log("Player Hit");
-        GameManager.Health -= 10;
-      }
+      healthManager.DecrementHealth();
+
+      // if (isPlayerInAttackRange) {
+      //   Debug.Log("Player Hit");
+      //   GameManager.Health -= 10;
+      // }
     }
   }
 }

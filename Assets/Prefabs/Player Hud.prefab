@@ -691,7 +691,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8735594516911709295}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -709,7 +709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890f6ef8c64a587439dfe2221258dd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 6673643365167312738}
 --- !u!1 &8863855425575945320
 GameObject:
   m_ObjectHideFlags: 0
