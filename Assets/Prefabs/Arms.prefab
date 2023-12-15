@@ -1810,7 +1810,7 @@ MonoBehaviour:
   walkSpeed: 12
   runSpeed: 16
   minFall: -1.5
-  jumpHeight: 20
+  jumpHeight: 50
   jumpCooldown: 0.25
   airMultiplier: 0.4
   rotSpeed: 1
@@ -1868,7 +1868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890f6ef8c64a587439dfe2221258dd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
 --- !u!1 &5737741110684748602
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-
+        
         if (gameManager == null)
         {
             Debug.LogError("GameManager instance is null! Make sure GameManager is properly initialized.");

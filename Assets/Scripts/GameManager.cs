@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static int Score = 0; // Overall Score, Synchronous with gameplay 
     public static float Health = 100; // Health of player, shared with player component for UI purpose
     public static float Stamina; // Stamina of player, shared with player component for UI purpose
+    public static int CurrentLevel = 1;
     private void Awake()
     {
         Instance = this;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     
     public void LoadLevel(int index = 0) // Load same Level, Index = 1 to go to next level
     {
+        CurrentLevel = index;
         SceneManager.LoadScene(index);
     }
     
@@ -27,7 +29,8 @@ public class GameManager : MonoBehaviour
         Score = Score + score;
         if (Score == 400)
         {
-            SceneManager.LoadScene(0);
+            LoadLevel(CurrentLevel + 1);
+            // SceneManager.LoadScene(CurrentLevel + 1);
         }
     }
     
