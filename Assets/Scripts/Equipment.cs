@@ -1,80 +1,36 @@
 using System;
 using System.Collections;
-using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-    public class Equipment : MonoBehaviour
+public class Equipment : MonoBehaviour
     {
-        #region FIELDS SERIALIZED
         
         [Header("Firing")]
-
-        [Tooltip("Is this weapon automatic? If yes, then holding down the firing button will continuously fire.")]
         [SerializeField] 
         private bool automatic;
-        
-        [Tooltip("How fast the projectiles are.")]
-        [SerializeField]
-        private float projectileImpulse = 400.0f;
-
-        [Tooltip("Amount of shots this weapon can shoot in a minute. It determines how fast the weapon shoots.")]
         [SerializeField] 
         private float rateOfFire = 0.1f;
-
+        [SerializeField] 
+        private int clipSize = 500;
+        
         [Tooltip("Mask of things recognized when firing.")]
         [SerializeField]
         private LayerMask mask;
-
-        [Tooltip("Maximum distance at which this weapon can fire accurately. Shots beyond this distance will not use linetracing for accuracy.")]
-        [SerializeField]
+        
         private float maximumDistance = 500.0f;
-
-        [Header("Animation")]
-
-        [Tooltip("Transform that represents the weapon's ejection port, meaning the part of the weapon that casings shoot from.")]
-        [SerializeField]
-        private Transform socketEjection;
-
-        [Header("Resources")]
-
-        [Tooltip("Casing Prefab.")]
-        [SerializeField]
-        private GameObject prefabCasing;
-        
-        [Tooltip("Projectile Prefab. This is the prefab spawned when the weapon shoots.")]
-        [SerializeField]
-        private GameObject prefabProjectile;
-        
-        [Tooltip("The AnimatorController a player character needs to use while wielding this weapon.")]
-        [SerializeField] 
-        public RuntimeAnimatorController controller;
-
-        [Tooltip("Weapon Body Texture.")]
-        [SerializeField]
-        private Sprite spriteBody;
-
-        #endregion
-        
+        public RuntimeAnimatorController animatorController;
         
         private Animator animator;
         private int ammunitionCurrent;
-        
         private Transform _camera;
-
         private GameObject muzzleSocket;
-        private MuzzleBehaviour muzzleBehaviour;
-        
         private ParticleSystem particles;
-
-        [Tooltip("Firing Particles.")]
-        [SerializeField]
-        private GameObject prefabFlashParticles;
-
         public GameObject bulletHole;
         public int damage = 10;
-
-
         
+        Text ammo;
         
         private void Awake()
         {
@@ -95,22 +51,14 @@ using UnityEngine;
         }
         protected void Start()
         {
-
+            ammo = GameObject.Find("Ammo").GetComponent<Text>();
+            ammunitionCurrent = clipSize;
         }
 
         private void Update()
         {
-            // Debug.Log("Camera Position: " + _camera.position);
-
-            // Debug.DrawRay(_camera.position, _camera.forward * 50f, Color.red);
-            int flashParticlesCount = 5;
-
-            
-            if(particles != null)
-                particles.Emit(flashParticlesCount);
+            ammo.text = "Ammo: " + ammunitionCurrent;
         }
-        
-        public int GetAmmunitionCurrent() => ammunitionCurrent;
         
         public bool IsAutomatic() => automatic;
         public float GetRateOfFire() => rateOfFire;
@@ -118,13 +66,21 @@ using UnityEngine;
         // public bool IsFull() => ammunitionCurrent == magazineBehaviour.GetAmmunitionTotal();
         public bool HasAmmunition() => ammunitionCurrent > 0;
 
-        public RuntimeAnimatorController GetAnimatorController() => controller;
-
-
-
+        public RuntimeAnimatorController GetAnimatorController() => animatorController;
+        
         public void Reload()
         {
-            //Play Reload Animation.
+            //Play Reload Animation
+            if (HasAmmunition())
+            {
+                animator.Play("Reload", 0, 0.0f);
+                ammunitionCurrent = clipSize;
+            }
+            else
+            {
+                animator.Play("Reload Empty", 0, 0.0f);
+                ammunitionCurrent = 0;
+            }
             animator.Play(HasAmmunition() ? "Reload" : "Reload Empty", 0, 0.0f);
         }
 
@@ -145,40 +101,29 @@ using UnityEngine;
             
             
             RaycastHit hit;
-            if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
-            {
-                Debug.Log("Ray hit: " + hit.collider.gameObject.name);
-                
-                ZombieStats zombieStats = hit.collider.gameObject.GetComponent<ZombieStats>();
-                if (zombieStats != null)
-                {
-                    zombieStats.DecreaseHealth(damage);
-                }
-                if (!hit.collider.CompareTag("Zombie") || !hit.collider.CompareTag("BulletHole"))
-                {
-                    StartCoroutine(BulletHit(hit));
-                }
-            }
-            else
-            {
-                Debug.Log("Ray did not hit anything.");
-            }
-        }
 
-        public IEnumerator RapidFire()
-        {
-            if (automatic)
+            if (HasAmmunition())
             {
-                while (true)
+                ammunitionCurrent--;
+                if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
                 {
-                    Fire();
-                    yield return new WaitForSeconds(1 / GetRateOfFire());   
+                    Debug.Log("Ray hit: " + hit.collider.gameObject.name);
+                
+                    ZombieStats zombieStats = hit.collider.gameObject.GetComponent<ZombieStats>();
+                    if (zombieStats != null)
+                    {
+                        Debug.Log("Damage for: " + damage);
+                        zombieStats.DecreaseHealth(damage);
+                    }
+                    if (!hit.collider.CompareTag("Zombie") || !hit.collider.CompareTag("BulletHole"))
+                    {
+                        StartCoroutine(BulletHit(hit));
+                    }
                 }
-            }
-            else
-            {
-                Fire();
-                yield return null;
+                else
+                {
+                    Debug.Log("Ray did not hit anything.");
+                }
             }
         }
         
@@ -206,16 +151,6 @@ using UnityEngine;
             
             Destroy(bulletHolePoint);
         }
-
-
-        public void FillAmmunition(int amount)
-        {
-
-        }
-
-        public void EjectCasing()
-        {
-
-        }
+        
 
     }

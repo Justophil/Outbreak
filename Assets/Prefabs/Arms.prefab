@@ -507,8 +507,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2021784730600929176}
   - component: {fileID: 5167652973497226492}
-  - component: {fileID: 810180295539029077}
-  - component: {fileID: 558974038121016824}
   m_Layer: 9
   m_Name: ArmsObj
   m_TagString: Untagged
@@ -554,34 +552,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &810180295539029077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676748827445865762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0adbdf8319816044786da04710105e40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &558974038121016824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676748827445865762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a74379b44be369043afd8160e1b39c49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: {x: 1, y: 1}
-  yClamp: {x: -89, y: 89}
-  smooth: 0
-  interpolationSpeed: 35
 --- !u!1 &1740274537945890778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,6 +1615,7 @@ GameObject:
   - component: {fileID: 5323529640639698986}
   - component: {fileID: 3523763212109800195}
   - component: {fileID: 7611946335280516151}
+  - component: {fileID: 1067083853145263173}
   m_Layer: 10
   m_Name: Arms
   m_TagString: Player
@@ -1885,6 +1856,19 @@ MonoBehaviour:
   snappiness: 0
   returnSpeed: 0
   characterAnimator: {fileID: 5167652973497226492}
+--- !u!114 &1067083853145263173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732675265466860039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890f6ef8c64a587439dfe2221258dd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
 --- !u!1 &5737741110684748602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,15 +3437,17 @@ PrefabInstance:
     - {fileID: 2544345319944641965, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
     - {fileID: 216315303531843652, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
     - {fileID: 7249389335555657943, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 6475465685434978581, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 7638298461085589120, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 5382364558728836416, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 8761746993312849190, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 1712401366660024085, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 2480563158121336331, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
+    - {fileID: 7264810007567121161, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
 --- !u!4 &1736343883899414238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2480563158121336328, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
-  m_PrefabInstance: {fileID: 4211992224415705302}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4587193147319519755 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 422488724393648861, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
   m_PrefabInstance: {fileID: 4211992224415705302}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5405784463900909889 stripped
@@ -3482,18 +3468,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automatic: 1
-  projectileImpulse: 400
   rateOfFire: 0.1
+  clipSize: 500
   mask:
     serializedVersion: 2
     m_Bits: 4294967295
-  maximumDistance: 500
-  socketEjection: {fileID: 4587193147319519755}
-  prefabCasing: {fileID: 0}
-  prefabProjectile: {fileID: 1492315059354262, guid: c638dfae3f3edf843b2614dae230a771, type: 3}
-  controller: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
-  spriteBody: {fileID: 0}
-  prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
+  animatorController: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
   damage: 10
 --- !u!1 &5721970832824065903 stripped
@@ -3514,25 +3494,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automatic: 0
-  projectileImpulse: 400
   rateOfFire: 0.1
+  clipSize: 500
   mask:
     serializedVersion: 2
     m_Bits: 1
-  maximumDistance: 500
-  socketEjection: {fileID: 8115852502533457577}
-  prefabCasing: {fileID: 0}
-  prefabProjectile: {fileID: 0}
-  controller: {fileID: 22100000, guid: 257eac322a7afde43bfa9aa9e60baa84, type: 2}
-  spriteBody: {fileID: 0}
-  prefabFlashParticles: {fileID: 0}
+  animatorController: {fileID: 22100000, guid: 257eac322a7afde43bfa9aa9e60baa84, type: 2}
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
   damage: 10
---- !u!4 &8115852502533457577 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5392299989625581183, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
-  m_PrefabInstance: {fileID: 4211992224415705302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7810584111368708984
 PrefabInstance:
   m_ObjectHideFlags: 0

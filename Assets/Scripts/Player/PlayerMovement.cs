@@ -1,4 +1,3 @@
-using InfimaGames.LowPolyShooterPack;
 using Outbreak;
 using UnityEngine;
 
@@ -13,9 +12,7 @@ namespace Player
         private Animator characterAnimator;
     
         private Equipment _equippedWeapon;
-        private WeaponAttachmentManagerBehaviour _weaponAttachmentManager;
-        private ScopeBehaviour _equippedWeaponScope;
-        private MagazineBehaviour _equippedWeaponMagazine;
+
 
         private bool CanMove { get; set; } = true;
         private float initialFOV;
@@ -136,7 +133,7 @@ namespace Player
             }
 
         
-            RaycastHit hit;
+            // RaycastHit hit;
             isGrounded = GroundCheck.IsGrounded(transform, groundDistance, groundLayer);
             
             if (isGrounded)

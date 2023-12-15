@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,23 +16,19 @@ namespace Outbreak
         
         
         public Transform weaponParent;
-        private GameObject currentWeapon;
-        private Transform gunTransform;
-        private Vector3 initialGunPosition;
-        private Vector3 targetGunPosition;
-        private int currentIndex = -1;
+        private GameObject _currentWeapon;
+        private Transform _gunTransform;
+        private Vector3 _initialGunPosition;
+        private Vector3 _targetGunPosition;
+        private int _currentIndex = -1;
 
         // Camera and Character Controller
         private CharacterController _controller;
         private Camera _playerCamera;
-
-        // FOV settings
-        private float initialFOV;
-        private float adsFOV = 30.0f;
-
+        
         // Rotation variables
-        private Vector3 currentRotation;
-        private Vector3 targetRotation;
+        private Vector3 _currentRotation;
+        private Vector3 _targetRotation;
 
         // Hipfire recoil
         [SerializeField] private float recoilX;
@@ -43,45 +38,24 @@ namespace Outbreak
         // Movement settings
         [SerializeField] private float snappiness;
         [SerializeField] private float returnSpeed;
-        private float smoothness = 5.0f;
+        private float _smoothness = 5.0f;
 
-        private bool isAiming = false;
+        private bool _isAiming = false;
         
-        float nextFire;
-
+        float _nextFire;
         
-        /// <summary>
-        /// /////////////
-        ///
-        ///
-        ///
-        /// 
-        /// </summary>
-       
-		
 		[Header("Animation Procedural")]
-		
-		[Tooltip("Character Animator.")]
 		[SerializeField]
 		private Animator characterAnimator;
-		private int layerOverlay;
-		private int layerHolster;
+		private int _layerOverlay;
+		private int _layerHolster;
+		private int _layerActions;
 		
-		/// <summary>
-		/// ////////
-		///
-		///
-		///
-		///
-		/// 
-		/// </summary>
-        
         private void Awake()
         {
             _controller = GetComponent<CharacterController>();
 
             _playerCamera = GetComponentInChildren<Camera>();
-            initialFOV = _playerCamera.fieldOfView;
             loadout = GetComponentsInChildren<Equipment>(true);
             
             foreach (Equipment item in loadout)
@@ -102,7 +76,8 @@ namespace Outbreak
 
 		private void Start()
 		{
-			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
+			_layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
+			_layerActions = characterAnimator.GetLayerIndex("Layer Actions");
 			characterAnimator.GetLayerIndex("Layer Holster");
 		}
 
@@ -117,6 +92,11 @@ namespace Outbreak
             {
                 Debug.Log("Equipping Item 2...");
                 Equip(1);
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+	            Debug.Log("Reloading...");
+	            Reload();
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -170,7 +150,7 @@ namespace Outbreak
 	        if (index > loadout.Length - 1)
 		        return equipped;
 	        
-	        if (currentIndex == index)
+	        if (_currentIndex == index)
 		        return equipped;
             
 	        //Disable the currently equipped weapon, if we have one.
@@ -179,16 +159,16 @@ namespace Outbreak
 
 	        
 	        //layerHolster
-	        layerHolster = characterAnimator.GetLayerIndex("Layer Holster");
+	        _layerHolster = characterAnimator.GetLayerIndex("Layer Holster");
 
 	        
 	        //Update index.
-	        currentIndex = index;
+	        _currentIndex = index;
 	        //Update equipped.
-	        equipped = loadout[currentIndex];
+	        equipped = loadout[_currentIndex];
 	        //Activate the newly-equipped weapon.
 	        equipped.gameObject.SetActive(true);
-	        characterAnimator.Play("Unholster", layerHolster, 0);
+	        characterAnimator.Play("Unholster", _layerHolster, 0);
 
 	        MonoBehaviour[] scriptsOnItem = equipped.GetComponents<MonoBehaviour>();
 	        foreach (var script in scriptsOnItem)
@@ -199,6 +179,7 @@ namespace Outbreak
 	        //Return.
 	        return equipped;
         }
+        
         
         public Equipment GetEquipped() => equipped;
 
@@ -218,15 +199,28 @@ namespace Outbreak
 	        // equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
         }
 
+        private void Reload()
+        {
+	        if (equipped.HasAmmunition())
+	        {
+		        characterAnimator.Play("Reload", _layerActions, 0.0f);
+	        }
+	        else
+	        {
+		        characterAnimator.Play("Reload Empty", _layerActions, 0.0f);
+	        }
+	        equipped.Reload();
+        }
+
         private void Fire()
         {
 	        equipped.Fire();
-	        characterAnimator.CrossFade("Fire", 0.05f, layerOverlay, 0);
+	        characterAnimator.CrossFade("Fire", 0.05f, _layerOverlay, 0);
         }
         
         public void RecoilFire()
         {
-            targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
+            _targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
         }
 
         private void ToggleADS(bool isAiming)

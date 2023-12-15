@@ -5,16 +5,18 @@ using UnityEngine.UI;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    public Slider healthBar;
-    float health = GameManager.Health;
+    private Slider healthBar;
     private GameManager gameManager;
+    float health = GameManager.Health;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        healthBar = GetComponent<Slider>();
-    }
+        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
+        gameManager = FindObjectOfType<GameManager>();
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -23,7 +25,8 @@ public class PlayerHealthManager : MonoBehaviour
 
       public void DecrementHealth() // Upon death of the player,     score decrease a good amount.
     {
-        healthBar.value -= 25;
+        Debug.Log("Player Hit");
+        healthBar.value -= 10;
         if (healthBar.value <= 0)
         {
             gameManager.LoadLevel(0);

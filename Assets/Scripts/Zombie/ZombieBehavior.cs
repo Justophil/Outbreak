@@ -20,7 +20,8 @@ namespace Zombie
     void Start()
     {
       // animator = GetComponent<Animator>();
-      healthManager = GetComponent<PlayerHealthManager>();
+      player = GameObject.FindGameObjectWithTag("Player");
+      healthManager = player.GetComponent<PlayerHealthManager>();
       GotoNextPoint();
     }
 
@@ -95,6 +96,7 @@ namespace Zombie
         Debug.Log("Ouch!");
         healthManager.DecrementHealth();
         StopMovement();
+        // HitPlayer();
         transform.LookAt(player.transform.position);
         isPlayerInAttackRange = true;
         // animator.SetBool("Attack", true);
@@ -122,6 +124,7 @@ namespace Zombie
     public void HitPlayer()
     {
       if (isPlayerInAttackRange) {
+        Debug.Log("Player Hit");
         GameManager.Health -= 10;
       }
     }
