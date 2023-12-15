@@ -1822,7 +1822,7 @@ MonoBehaviour:
   bobFrequency: 1
   bobAmount: 0.05
   sprintBobMultiplier: 1.5
-  groundDistance: 1
+  groundDistance: 1.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3497,7 +3497,7 @@ MonoBehaviour:
   clipSize: 500
   mask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4294967295
   animatorController: {fileID: 22100000, guid: 257eac322a7afde43bfa9aa9e60baa84, type: 2}
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
   damage: 10
