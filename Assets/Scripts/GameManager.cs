@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
         CurrentLevel = index;
         SceneManager.LoadScene(index);
     }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(CurrentLevel);
+    }
     
     public void IncrementScore(int score) // Every Zombie kill, could have multiplier paarameter for special zombies
     {
@@ -32,11 +37,23 @@ public class GameManager : MonoBehaviour
             LoadLevel(CurrentLevel + 1);
             // SceneManager.LoadScene(CurrentLevel + 1);
         }
+        
+        if (Score == 800)
+        {
+            LoadLevel(CurrentLevel + 1);
+            // SceneManager.LoadScene(CurrentLevel + 1);
+        }
+        
+        if (Score == 1200)
+        {
+            LoadLevel(CurrentLevel + 1);
+            // SceneManager.LoadScene(CurrentLevel + 1);
+        }
     }
     
     public void DecrementScore() // Upon death of the player,     score decrease a good amount.
     {
-        Score = Score - 500;
+        Score = Score - 200;
         if (Score < 0) Score = 0;
     }
 

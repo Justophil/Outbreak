@@ -2498,7 +2498,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 150
+  far clip plane: 120
   field of view: 90
   orthographic: 0
   orthographic size: 5
@@ -3550,29 +3550,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7611946334690098729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405784463900909889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 095edf0c0ea9fdb49b566ccba4657bf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  automatic: 1
-  rateOfFire: 0.1
-  clipSize: 100
-  mask:
-    serializedVersion: 2
-    m_Bits: 247
-  animatorController: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
-  bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
-  damage: 10
-  gunshotAudioSource: {fileID: 0}
-  reloadSound: {fileID: 8300000, guid: 778c7be53403f9e45804f5a61a13a3e6, type: 3}
 --- !u!120 &5907405278150288137
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3672,6 +3649,29 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &7611946334690098729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405784463900909889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095edf0c0ea9fdb49b566ccba4657bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  automatic: 1
+  rateOfFire: 0.1
+  clipSize: 100
+  mask:
+    serializedVersion: 2
+    m_Bits: 247
+  animatorController: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
+  bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
+  damage: 50
+  gunshotAudioSource: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 778c7be53403f9e45804f5a61a13a3e6, type: 3}
 --- !u!1 &5721970832824065903 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8438767940922161081, guid: 9482e0a2ae6a92742bbe72e00f29f763, type: 3}
@@ -3773,29 +3773,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7611946334636614830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5721970832824065903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 095edf0c0ea9fdb49b566ccba4657bf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  automatic: 0
-  rateOfFire: 0.1
-  clipSize: 10
-  mask:
-    serializedVersion: 2
-    m_Bits: 247
-  animatorController: {fileID: 22100000, guid: 257eac322a7afde43bfa9aa9e60baa84, type: 2}
-  bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
-  damage: 10
-  gunshotAudioSource: {fileID: 0}
-  reloadSound: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
 --- !u!120 &4052285990667037019
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3895,6 +3872,29 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &7611946334636614830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5721970832824065903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095edf0c0ea9fdb49b566ccba4657bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  automatic: 0
+  rateOfFire: 0.1
+  clipSize: 10
+  mask:
+    serializedVersion: 2
+    m_Bits: 247
+  animatorController: {fileID: 22100000, guid: 257eac322a7afde43bfa9aa9e60baa84, type: 2}
+  bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
+  damage: 50
+  gunshotAudioSource: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
 --- !u!1001 &7810584111368708984
 PrefabInstance:
   m_ObjectHideFlags: 0

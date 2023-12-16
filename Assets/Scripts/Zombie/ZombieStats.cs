@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZombieStats : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class ZombieStats : MonoBehaviour
     }
 
     private GameManager gameManager;
-    
+    private NavMeshAgent navMeshAgent;
 
     public ZombieType zombieType;
     private int health;
@@ -28,8 +29,15 @@ public class ZombieStats : MonoBehaviour
 
     void Start()
     {
+        zombieType = (ZombieType)Random.Range(1, 4);
         SetUpStats();
         gameManager = GameManager.Instance;
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.speed = speed;
+        }
+
     }
 
     void SetUpStats()
