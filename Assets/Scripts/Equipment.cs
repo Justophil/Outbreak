@@ -86,7 +86,7 @@ public class Equipment : MonoBehaviour
             else
             {
                 animator.Play("Reload Empty", 0, 0.0f);
-                ammunitionCurrent = 0;
+                ammunitionCurrent = clipSize;
             }
             gunshotAudioSource.PlayOneShot(reloadSound);
             animator.Play(HasAmmunition() ? "Reload" : "Reload Empty", 0, 0.0f);
@@ -99,8 +99,7 @@ public class Equipment : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(_camera.forward * 1000.0f - muzzleSocket.transform.position);
 
             
-            animator.Play("Fire", 0, 0.0f);
-            gunshotAudioSource.Play();
+            
 
             
             // GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.transform.position, rotation);
@@ -114,6 +113,8 @@ public class Equipment : MonoBehaviour
 
             if (HasAmmunition())
             {
+                animator.Play("Fire", 0, 0.0f);
+                gunshotAudioSource.Play();
                 ammunitionCurrent--;
                 if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
                 {
