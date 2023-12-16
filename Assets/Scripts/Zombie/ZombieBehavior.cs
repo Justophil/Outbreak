@@ -30,7 +30,7 @@ namespace Zombie
     void Update()
     {
       // animator.SetFloat("Speed",agent.speed);
-      //if(SeePlayer())
+      if(SeePlayer())
       {
         // Debug.Log(agent.transform.position);
         agent.destination = player.transform.position;
