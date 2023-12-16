@@ -50,9 +50,9 @@ namespace Player
         private float rotationX = 0;
 
         [Header("Headbob Parameters")]
-        [SerializeField] private float bobFrequency = 1.0f;   
-        [SerializeField] private float bobAmount = 0.05f;      
-        [SerializeField] private float sprintBobMultiplier = 1.5f; 
+        [SerializeField] private float bobFrequency = 0.4f;   
+        [SerializeField] private float bobAmount = 0.01f;      
+        [SerializeField] private float sprintBobMultiplier = 1.2f; 
 
         private Vector3 _initialCameraPosition;
         private float _headbobTimer = 0;
@@ -126,7 +126,7 @@ namespace Player
             {
                 if (canUseHeadbob)
                 {
-                    // HandleHeadbob();
+                    HandleHeadbob();
                 }
             
                 UpdateCameraRotation();

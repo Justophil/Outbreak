@@ -95,10 +95,8 @@ namespace Zombie
       {
         Debug.Log("Ouch!");
         StopMovement();
-        // HitPlayer();
         transform.LookAt(player.transform.position);
         isPlayerInAttackRange = true;
-        // animator.SetBool("Attack", true);
         Invoke("ResumeMovement",2.0f);
         InvokeRepeating("HitPlayer", 0f, 1f);
       }
@@ -109,7 +107,6 @@ namespace Zombie
       {
         isPlayerInAttackRange = false;
         CancelInvoke("HitPlayer");
-        // animator.SetBool("Attack", false);
         ResumeMovement();
       }
     }
@@ -120,8 +117,9 @@ namespace Zombie
     }
     public void ResumeMovement()
     {
-      animator.SetFloat("MoveSpeed", agent.speed);
       agent.isStopped = false; // was agent.Stop();
+      animator.SetFloat("MoveSpeed", agent.speed);
+
     }
     public void HitPlayer()
     {
