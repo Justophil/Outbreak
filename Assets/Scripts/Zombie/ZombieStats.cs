@@ -54,11 +54,11 @@ public class ZombieStats : MonoBehaviour
                 break;
             case ZombieType.FastZombie:
                 health = 100;
-                speed = 18;
+                speed = 13;
                 break;
             default:
                 health = 1;
-                speed = 15;
+                speed = 10;
                 break;
         }
     }
