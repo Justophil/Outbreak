@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/City.unity
     guid: 9c6fe9f02aaa3cd47bc778fa79ade3a3
   - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 5a5644d0ecc2693409e5c1f470608789
+  - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
