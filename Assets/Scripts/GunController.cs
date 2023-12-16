@@ -51,12 +51,17 @@ namespace Outbreak
 		private int _layerHolster;
 		private int _layerActions;
 		
+		private float initialFOV;
+
+		
         private void Awake()
         {
             _controller = GetComponent<CharacterController>();
 
             _playerCamera = GetComponentInChildren<Camera>();
             loadout = GetComponentsInChildren<Equipment>(true);
+            initialFOV = _playerCamera.fieldOfView;
+
             
             foreach (Equipment item in loadout)
 	            item.gameObject.SetActive(false);
@@ -226,16 +231,22 @@ namespace Outbreak
         private void ToggleADS(bool isAiming)
         {
 	        characterAnimator.SetBool("Aim", isAiming);
+	        characterAnimator.SetFloat("Aiming", isAiming ? 1 : 0);
+
+	        int adsFOV = 40;
+	        
+	        if (isAiming)
+	        {
+		        StartCoroutine(SetADS(_playerCamera.fieldOfView, adsFOV, 0.2f)); 
+	        }
+	        else
+	        {
+		        StartCoroutine(SetADS(_playerCamera.fieldOfView, initialFOV, 0.2f));
+	        }
+			      
 
 	        
-            // // Transform t_anchor = currentWeapon.transform.Find("Anchor");
-            // Transform t_anchor = currentWeapon.transform.Find("Anchor");
-            // Transform t_state_ads = currentWeapon.transform.Find("States/ADS");
-            // Transform t_state_hip = currentWeapon.transform.Find("States/Hip");
-            //
-            // t_anchor.position = Vector3.Lerp(t_anchor.position, t_state_hip.position, Time.fixedDeltaTime * loadout[currentIndex].aimSpeed);
-            //
-            //
+       
             // if (isAiming)
             // {
             //     // Transition to ADS
@@ -257,19 +268,19 @@ namespace Outbreak
             // this.isAiming = isAiming;
         }
 
-        // private IEnumerator SetADS(float startFOV, float targetFOV, float duration)
-        // {
-        //     float elapsedTime = 0f;
-        //
-        //     while (elapsedTime < duration)
-        //     {
-        //         _playerCamera.fieldOfView = Mathf.Lerp(startFOV, targetFOV, elapsedTime / duration);
-        //         elapsedTime += Time.deltaTime;
-        //         yield return null;
-        //     }
-        //
-        //     _playerCamera.fieldOfView = targetFOV;
-        // }
+        private IEnumerator SetADS(float startFOV, float targetFOV, float duration)
+        {
+            float elapsedTime = 0f;
+        
+            while (elapsedTime < duration)
+            {
+                _playerCamera.fieldOfView = Mathf.Lerp(startFOV, targetFOV, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        
+            _playerCamera.fieldOfView = targetFOV;
+        }
 
 
     // private void HandleGunMovement()
