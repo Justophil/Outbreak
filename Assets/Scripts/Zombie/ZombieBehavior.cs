@@ -14,12 +14,12 @@ namespace Zombie
     // public Transform[] points;
     private int destPoint = 0;
     private PlayerHealthManager healthManager;
-    // private Animator animator;
+    private Animator animator;
     
     // Start is called before the first frame update
     void Start()
     {
-      // animator = GetComponent<Animator>();
+      animator = GetComponent<Animator>();
       player = GameObject.FindGameObjectWithTag("Player");
       healthManager = player.GetComponent<PlayerHealthManager>();
       GotoNextPoint();
@@ -120,6 +120,7 @@ namespace Zombie
     }
     public void ResumeMovement()
     {
+      animator.SetFloat("MoveSpeed", agent.speed);
       agent.isStopped = false; // was agent.Stop();
     }
     public void HitPlayer()

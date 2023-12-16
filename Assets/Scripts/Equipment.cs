@@ -30,6 +30,10 @@ public class Equipment : MonoBehaviour
         public GameObject bulletHole;
         public int damage = 10;
         
+        [SerializeField]
+        private AudioSource gunshotAudioSource;
+
+        
         Text ammo;
         
         private void Awake()
@@ -53,6 +57,7 @@ public class Equipment : MonoBehaviour
         {
             ammo = GameObject.Find("Ammo").GetComponent<Text>();
             ammunitionCurrent = clipSize;
+            gunshotAudioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -92,6 +97,8 @@ public class Equipment : MonoBehaviour
 
             
             animator.Play("Fire", 0, 0.0f);
+            gunshotAudioSource.Play();
+
             
             // GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.transform.position, rotation);
 
@@ -115,7 +122,7 @@ public class Equipment : MonoBehaviour
                         Debug.Log("Damage for: " + damage);
                         zombieStats.DecreaseHealth(damage);
                     }
-                    if (!hit.collider.CompareTag("Zombie") || !hit.collider.CompareTag("BulletHole"))
+                    if (!hit.collider.CompareTag("Zombie") || !hit.collider.CompareTag("BulletHole") || !hit.collider.CompareTag("Player"))
                     {
                         StartCoroutine(BulletHit(hit));
                     }
