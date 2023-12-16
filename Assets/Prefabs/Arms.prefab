@@ -3476,6 +3476,7 @@ MonoBehaviour:
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
   damage: 10
   gunshotAudioSource: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 778c7be53403f9e45804f5a61a13a3e6, type: 3}
 --- !u!82 &5469357631308810803
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3599,6 +3600,7 @@ MonoBehaviour:
   bulletHole: {fileID: 2385536364029349231, guid: f76ae1fb2567ddd4a856b8e63500f878, type: 3}
   damage: 10
   gunshotAudioSource: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
 --- !u!82 &1291546723858748103
 AudioSource:
   m_ObjectHideFlags: 0

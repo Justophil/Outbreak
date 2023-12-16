@@ -32,6 +32,8 @@ public class Equipment : MonoBehaviour
         
         [SerializeField]
         private AudioSource gunshotAudioSource;
+        [SerializeField]
+        private AudioClip reloadSound;
 
         
         Text ammo;
@@ -86,6 +88,7 @@ public class Equipment : MonoBehaviour
                 animator.Play("Reload Empty", 0, 0.0f);
                 ammunitionCurrent = 0;
             }
+            gunshotAudioSource.PlayOneShot(reloadSound);
             animator.Play(HasAmmunition() ? "Reload" : "Reload Empty", 0, 0.0f);
         }
 
