@@ -31,7 +31,9 @@ public class PlayerHealthManager : MonoBehaviour
         health -= 10;
         if (health <= 0)
         {
-            gameManager.LoadLevel(0);
+            gameManager.DecrementScore();
+            gameManager.RestartLevel();
+            // gameManager.LoadLevel(0);
             Destroy(gameObject);
         }
     }
