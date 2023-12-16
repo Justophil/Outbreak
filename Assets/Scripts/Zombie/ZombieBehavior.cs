@@ -22,7 +22,7 @@ namespace Zombie
       animator = GetComponent<Animator>();
       player = GameObject.FindGameObjectWithTag("Player");
       healthManager = player.GetComponent<PlayerHealthManager>();
-      GotoNextPoint();
+      // GotoNextPoint();
     }
 
     
@@ -30,13 +30,13 @@ namespace Zombie
     void Update()
     {
       // animator.SetFloat("Speed",agent.speed);
-      //if(SeePlayer())
-  //    {
+  //     if(SeePlayer())
+  // {
         // Debug.Log(agent.transform.position);
         agent.destination = player.transform.position;
-        agent.speed = 3.0f;
+        // agent.speed = 3.0f;
         // Go to Player
-    //  }
+    // }
       /*else {
         if(HasReachedDestination()) {
           StopMovement();
@@ -97,7 +97,7 @@ namespace Zombie
         StopMovement();
         transform.LookAt(player.transform.position);
         isPlayerInAttackRange = true;
-        Invoke("ResumeMovement",2.0f);
+        Invoke("ResumeMovement",1.0f);
         InvokeRepeating("HitPlayer", 0f, 1f);
       }
     }
