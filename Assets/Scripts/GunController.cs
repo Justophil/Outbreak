@@ -52,6 +52,8 @@ namespace Outbreak
 		private int _layerActions;
 		
 		private float initialFOV;
+		private bool isReloading = false;
+
 
 		
         private void Awake()
@@ -104,7 +106,7 @@ namespace Outbreak
 	            Reload();
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !isReloading)
             {
 	            if (equipped.IsAutomatic())
 	            {
@@ -206,15 +208,27 @@ namespace Outbreak
 
         private void Reload()
         {
-	        if (equipped.HasAmmunition())
+	        if (!isReloading && equipped.HasAmmunition())
 	        {
+		        isReloading = true;
 		        characterAnimator.Play("Reload", _layerActions, 0.0f);
+		        equipped.Reload();
+		        StartCoroutine(WaitForReloadAnimation());
 	        }
 	        else
 	        {
+		        isReloading = true;
 		        characterAnimator.Play("Reload Empty", _layerActions, 0.0f);
+		        equipped.Reload();
+		        StartCoroutine(WaitForReloadAnimation());
+
 	        }
-	        equipped.Reload();
+        }
+
+        private IEnumerator WaitForReloadAnimation()
+        {
+	        yield return new WaitForSeconds(1.5f);
+	        isReloading = false;
         }
 
         private void Fire()

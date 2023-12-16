@@ -35,6 +35,9 @@ public class Equipment : MonoBehaviour
         [SerializeField]
         private AudioClip reloadSound;
 
+        private float laserDuration = 0.05f;
+        
+        private LineRenderer _laserLine;
         
         Text ammo;
         
@@ -57,6 +60,7 @@ public class Equipment : MonoBehaviour
         }
         protected void Start()
         {
+            _laserLine = GetComponent<LineRenderer>();
             ammo = GameObject.Find("Ammo").GetComponent<Text>();
             ammunitionCurrent = clipSize;
             gunshotAudioSource = GetComponent<AudioSource>();
@@ -116,10 +120,11 @@ public class Equipment : MonoBehaviour
                 animator.Play("Fire", 0, 0.0f);
                 gunshotAudioSource.Play();
                 ammunitionCurrent--;
+                _laserLine.SetPosition(0, muzzleSocket.transform.position);
                 if (Physics.Raycast(_camera.position, _camera.forward, out hit, maximumDistance, mask))
                 {
                     Debug.Log("Ray hit: " + hit.collider.gameObject.name);
-                
+                    _laserLine.SetPosition(1, hit.point);
                     ZombieStats zombieStats = hit.collider.gameObject.GetComponent<ZombieStats>();
                     if (zombieStats != null)
                     {
@@ -133,9 +138,20 @@ public class Equipment : MonoBehaviour
                 }
                 else
                 {
+                    _laserLine.SetPosition(1, (muzzleSocket.transform.position) + (_camera.forward * maximumDistance));
+
                     Debug.Log("Ray did not hit anything.");
                 }
+
+                StartCoroutine(ShootLaser());
             }
+        }
+
+        IEnumerator ShootLaser()
+        {
+            _laserLine.enabled = true;
+            yield return new WaitForSeconds(laserDuration);
+            _laserLine.enabled = false;
         }
         
         IEnumerator BulletHit(RaycastHit hit)
